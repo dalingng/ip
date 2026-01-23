@@ -24,4 +24,8 @@ public class Task {
         this.isDone = false;
     }
 
+    public void delete() {
+
+    }
+
 }

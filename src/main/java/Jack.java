@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jack {
@@ -5,7 +6,7 @@ public class Jack {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        Task[] inputList = new Task[100];
+        ArrayList<Task> inputList = new ArrayList<>();
         int count = 0;
         System.out.println(line);
         welcome();
@@ -22,14 +23,14 @@ public class Jack {
                     if (idx < 0 || idx >= count) {
                         throw new Excep("no such task number");
                     }
-                    Task t = inputList[idx];
+                    Task t = inputList.get(idx);
                     unmark(t);
                 } else if (command.startsWith("mark ")) {
                     int idx = Integer.parseInt(command.substring(5)) - 1;
                     if (idx < 0 || idx >= count) {
                         throw new Excep("no such task number");
                     }
-                    Task t = inputList[idx];
+                    Task t = inputList.get(idx);
                     mark(t);
 
 
@@ -69,6 +70,19 @@ public class Jack {
                     String dl = tempdl.substring(3);
                     inputList = deadline(inputList, count, text, dl);
                     count = count + 1;
+                } else if (command.startsWith("delete ")) {
+                    int idx = Integer.parseInt(command.substring(7)) - 1;
+                    if (idx < 0 || idx >= count) {
+                        throw new Excep("no such task number");
+                    }
+                    Task t = inputList.get(idx);
+                    inputList.remove(idx);
+                    count = count - 1;
+                    System.out.println(line);
+                    System.out.println("Noted. I've removed this task:");
+                    System.out.println("  " + t);
+                    System.out.println("Now you have " + count + " tasks in the list.");
+                    System.out.println(line);
                 } else {
                     throw new Excep("idk your command");
                 }
@@ -80,9 +94,9 @@ public class Jack {
         }
     }
 
-    private static Task[] todo(Task[] list, int count, String c) {
+    private static ArrayList<Task> todo(ArrayList<Task> list, int count, String c) {
         ToDo todo = new ToDo(c);
-        list[count] = todo;
+        list.add(todo);
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + todo);
@@ -91,9 +105,9 @@ public class Jack {
         return list;
     }
 
-    private static Task[] deadline(Task[] list, int count, String c, String d) {
+    private static ArrayList<Task> deadline(ArrayList<Task> list, int count, String c, String d) {
         Deadline deadline = new Deadline(c, d);
-        list[count] = deadline;
+        list.add(deadline);
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + deadline);
@@ -102,9 +116,9 @@ public class Jack {
         return list;
     }
 
-    private static Task[] event(Task[] list, int count, String c, String s, String e) {
+    private static ArrayList<Task> event(ArrayList<Task> list, int count, String c, String s, String e) {
         Event event = new Event(c, s, e);
-        list[count] = event;
+        list.add(event);
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + event);
@@ -126,18 +140,18 @@ public class Jack {
         System.out.println(line);
     }
 
-    private static Task[] add(Task[] list, int count, String c) {
+    /*private static ArrayList<Task> add(ArrayList<Task> list, int count, String c) {
         System.out.println(line);
         System.out.println("added: " + c);
         System.out.println(line);
         list[count] = new Task(c);
         return list;
-    }
-    private static void list(Task[] list, int count) {
+    }*/
+    private static void list(ArrayList<Task> list, int count) {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
         for (int j = 1; j <= count; j++) {
-            System.out.println(j + "." + list[j - 1].toString());
+            System.out.println(j + "." + list.get(j - 1).toString());
         }
         System.out.println(line);
     }
