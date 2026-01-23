@@ -16,73 +16,19 @@ public class Jack {
                 break;
             } else if (command.equals("list")) {
                 list(inputList, count);
-            } else if (command.startsWith("unmark ")) {
+            } else if (command.startsWith("unmark")) {
                 int idx = Integer.parseInt(command.substring(7)) - 1;
                 Task t = inputList[idx];
                 unmark(t);
-            } else if (command.startsWith("mark ")) {
+            } else if (command.startsWith("mark")) {
                 int idx = Integer.parseInt(command.substring(5)) - 1;
                 Task t = inputList[idx];
                 mark(t);
-
-
-            } else if (command.startsWith("todo ")) {
-                String text = command.substring(5);
-                inputList = todo(inputList, count, text);
-                count = count + 1;
-            } else if (command.startsWith("event ")) {
-                String task = command.substring(6);
-                String[] temp = task.split(" /", 3);
-                String text = temp[0];
-                String start = temp[1];
-                String end = temp[2];
-                inputList = event(inputList, count, text, start, end);
-                count = count + 1;
-            } else if (command.startsWith("deadline ")) {
-                String task = command.substring(9);
-                String[] temp = task.split(" /", 2);
-                String text = temp[0];
-                String dl = temp[1];
-                inputList = deadline(inputList, count, text, dl);
-                count = count + 1;
             } else {
                 inputList = add(inputList, count, command);
                 count = count + 1;
             }
         }
-    }
-
-    private static Task[] todo(Task[] list, int count, String c) {
-        ToDo todo = new ToDo(c);
-        list[count] = todo;
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + todo);
-        System.out.println(line);
-        System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-        return list;
-    }
-
-    private static Task[] deadline(Task[] list, int count, String c, String d) {
-        Deadline deadline = new Deadline(c, d);
-        list[count] = deadline;
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + deadline);
-        System.out.println(line);
-        System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-        return list;
-    }
-
-    private static Task[] event(Task[] list, int count, String c, String s, String e) {
-        Event event = new Event(c, s, e);
-        list[count] = event;
-        System.out.println(line);
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + event);
-        System.out.println(line);
-        System.out.println("Now you have " + (count + 1) + " tasks in the list.");
-        return list;
     }
 
     private static void welcome() {
