@@ -15,4 +15,12 @@ public class ToDo extends Task{
     public String serialize(){
         return String.join(" | ",this.isDone?"1":"0",this.description);
     }
+
+    public static ToDo taskToToDo(String text) throws Excep {
+
+        if (text.isEmpty()) {
+            throw new Excep("nothing todo i also want");
+        }
+        return new ToDo(text);
+    }
 }

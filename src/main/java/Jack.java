@@ -42,10 +42,8 @@ public class Jack {
                     taskData.save(inputList);
                 } else if (command.startsWith("todo ")) {
                     String text = command.substring(5);
-                    if (text.isEmpty()) {
-                        throw new Excep("nothing todo i also want");
-                    }
-                    inputList = todo(inputList, text);
+                    ToDo todo = ToDo.taskToToDo(text);
+                    inputList = todo(inputList, todo);
                     taskData.save(inputList);
                 } else if (command.startsWith("event ")) {
                     String task = command.substring(6);
@@ -86,8 +84,7 @@ public class Jack {
         }
     }
 
-    private static ArrayList<Task> todo(ArrayList<Task> list, String c) {
-        ToDo todo = new ToDo(c);
+    private static ArrayList<Task> todo(ArrayList<Task> list, ToDo todo) {
         list.add(todo);
         System.out.println(line);
         System.out.println("Got it. I've added this task:");

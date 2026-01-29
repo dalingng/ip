@@ -80,6 +80,8 @@ public class TaskData {
             task = Event.taskToEvent(command);
         } else if (type.equals("D")) {
             task = Deadline.taskToDeadline(command);
+        }else if (type.equals("T")) {
+            task = ToDo.taskToToDo(command);
         } else{
             throw new Exception("unknown data type");
         }
