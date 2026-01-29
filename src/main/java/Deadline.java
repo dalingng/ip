@@ -1,10 +1,25 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Locale;
+
 public class Deadline extends Task {
 
     protected String due;
 
-    public Deadline(String description, String due) {
+
+    public Deadline(String description, String due) throws Excep {
         super(description);
-        this.due = due;
+        try{
+            LocalDateTime time = DateTimeTool.parseDateTime(due);
+            this.due = time.format(DateTimeTool.getTimeFormat());
+        }catch (Excep e){
+            System.out.println(e.getMessage());
+            this.due = due;
+        }
     }
 
 

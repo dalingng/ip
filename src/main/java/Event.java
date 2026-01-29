@@ -1,11 +1,23 @@
+import java.time.LocalDateTime;
+
 public class Event extends Task {
     protected String start;
     protected String end;
 
     public Event(String description, String start, String end) {
         super(description);
-        this.start = start;
-        this.end = end;
+        try{
+            LocalDateTime startTime = DateTimeTool.parseDateTime(start);
+            this.start = startTime.format(DateTimeTool.getTimeFormat());
+
+
+            LocalDateTime endTime = DateTimeTool.parseDateTime(start);
+            this.end = endTime.format(DateTimeTool.getTimeFormat());
+        }catch (Excep e){
+            System.out.println(e.getMessage());
+            this.start = start;
+            this.end = end;
+        }
     }
 
 
