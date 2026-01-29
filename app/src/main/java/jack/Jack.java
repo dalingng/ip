@@ -1,3 +1,4 @@
+package jack;
 import jack.Excep;
 import jack.command.Command;
 import jack.command.Parser;
