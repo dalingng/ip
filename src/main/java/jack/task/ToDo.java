@@ -1,4 +1,8 @@
-public class ToDo extends Task{
+package jack.task;
+
+import jack.Excep;
+
+public class ToDo extends Task {
 
     public ToDo(String description) {
         super(description);

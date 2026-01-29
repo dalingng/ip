@@ -1,8 +1,14 @@
-import java.io.IOException;
+package jack.command;
 
-public class MarkCommand extends Command{
+import jack.Excep;
+import jack.storage.Storage;
+import jack.task.Task;
+import jack.task.TaskList;
+import jack.ui.Ui;
+
+public class UnmarkCommand extends Command{
     private int idx;
-    public MarkCommand(int idx){
+    public UnmarkCommand(int idx){
         this.idx = idx - 1;
     }
     @Override
@@ -11,9 +17,9 @@ public class MarkCommand extends Command{
             throw new Excep("no such task number");
         }
         Task t = tasks.get(idx);
-        ui.mark();
-        t.mark();
+        ui.unmark();
+        t.unmark();
         storage.save(tasks);
-        ui.markSuccess(t);
+        ui.unmarkSuccess(t);
     }
 }

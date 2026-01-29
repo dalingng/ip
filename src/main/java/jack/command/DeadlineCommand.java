@@ -1,3 +1,10 @@
+package jack.command;
+
+import jack.storage.Storage;
+import jack.task.Deadline;
+import jack.task.TaskList;
+import jack.ui.Ui;
+
 public class DeadlineCommand extends Command{
     private Deadline deadline;
 

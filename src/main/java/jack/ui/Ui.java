@@ -1,13 +1,16 @@
+package jack.ui;
+
+import jack.task.*;
+
 import java.util.ArrayList;
 
 public class Ui {
     private static final String line = "____________________________________________________________";
-    private Storage storage;
     public void showLine(){
         System.out.println(line);
     }
 
-    public void todo(ArrayList<Task> list, ToDo todo) {
+    public void todo(TaskList list, ToDo todo) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + todo);
@@ -15,7 +18,7 @@ public class Ui {
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
-    public void deadline(ArrayList<Task> list, Deadline deadline) {
+    public void deadline(TaskList list, Deadline deadline) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + deadline);
@@ -23,14 +26,14 @@ public class Ui {
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
-    public void event(ArrayList<Task> list, Event event) {
+    public void event(TaskList list, Event event) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + event);
         System.out.println(line);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
-    public void delete(ArrayList<Task> list, Task t){
+    public void delete(TaskList list, Task t){
         System.out.println(line);
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + t);
@@ -51,14 +54,7 @@ public class Ui {
         System.out.println(line);
     }
 
-    /*private static ArrayList<Task> add(ArrayList<Task> list, String c) {
-        System.out.println(line);
-        System.out.println("added: " + c);
-        System.out.println(line);
-        list[list.size()] = new Task(c);
-        return list;
-    }*/
-    public void list(ArrayList<Task> list) {
+    public void list(TaskList list) {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
         for (int j = 1; j <= list.size(); j++) {

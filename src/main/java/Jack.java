@@ -1,9 +1,15 @@
+import jack.Excep;
+import jack.command.Command;
+import jack.command.Parser;
+import jack.storage.Storage;
+import jack.task.TaskList;
+import jack.ui.Ui;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Jack {
-    private Ui ui;
+    private final Ui ui;
     private Storage storage;
     public  Jack(String filePath){
         this.ui = new Ui();

@@ -1,3 +1,10 @@
+package jack.command;
+
+import jack.storage.Storage;
+import jack.task.Event;
+import jack.task.TaskList;
+import jack.ui.Ui;
+
 public class EventCommand extends Command{
     private Event event;
 
