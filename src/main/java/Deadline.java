@@ -15,7 +15,7 @@ public class Deadline extends Task {
         super(description);
         try{
             LocalDateTime time = DateTimeTool.parseDateTime(due);
-            this.due = time.format(DateTimeTool.getTimeFormat());
+            this.due = DateTimeTool.formatDateTime(time);
         }catch (Excep e){
             System.out.println(e.getMessage());
             this.due = due;

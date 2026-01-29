@@ -8,11 +8,11 @@ public class Event extends Task {
         super(description);
         try{
             LocalDateTime startTime = DateTimeTool.parseDateTime(start);
-            this.start = startTime.format(DateTimeTool.getTimeFormat());
+            this.start = DateTimeTool.formatDateTime(startTime);
 
 
             LocalDateTime endTime = DateTimeTool.parseDateTime(start);
-            this.end = endTime.format(DateTimeTool.getTimeFormat());
+            this.end = DateTimeTool.formatDateTime(endTime);
         }catch (Excep e){
             System.out.println(e.getMessage());
             this.start = start;

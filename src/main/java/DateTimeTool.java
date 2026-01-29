@@ -8,9 +8,18 @@ import java.util.Locale;
 
 public class DateTimeTool {
 
-    private static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy").withLocale(Locale.ENGLISH);
-    public static DateTimeFormatter getTimeFormat(){
-        return timeFormat;
+    private static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy h.mm.ssa").withLocale(Locale.ENGLISH);
+    private static DateTimeFormatter timeFormatM = DateTimeFormatter.ofPattern("MMM dd yyyy h.mma").withLocale(Locale.ENGLISH);
+    private static DateTimeFormatter timeFormatH = DateTimeFormatter.ofPattern("MMM dd yyyy ha").withLocale(Locale.ENGLISH);
+    public static String formatDateTime(LocalDateTime time){
+
+        if(time.getSecond()==0 && time.getMinute()==0){
+            return time.format(timeFormatH);
+        }
+        if(time.getSecond()==0){
+            return time.format(timeFormatM);
+        }
+        return time.format(timeFormat);
     }
     private static final String[] PATTERNS = {
             "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd",
@@ -18,7 +27,12 @@ public class DateTimeTool {
             "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy",
             "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy",
             "d/M/yyyy HH:mm:ss", "d/M/yyyy",
+            "d/M/yyyy hhmma", "d/M/yyyy HHmm",
             "MMM dd yyyy","MMM dd yyyy HH:mm:ss",
+            "MMM dd yyyy HH:mm","MMM dd yyyy hh:mma","MMM dd yyyy hh:mm a",
+            "MMM dd yyyy HH.mm","MMM dd yyyy hh.mma","MMM dd yyyy hh.mm a",
+            "MMM dd yyyy H.m","MMM dd yyyy h.ma","MMM dd yyyy h.m a",
+            "MMM dd yyyy H","MMM dd yyyy ha","MMM dd yyyy h a",
             "dd-MMM-yyyy HH:mm:ss", "dd-MMM-yyyy","MMM dd yyyy","MMM dd yyyy HH:mm:ss"
     };
 
@@ -27,18 +41,7 @@ public class DateTimeTool {
         if (timeStr == null || timeStr.trim().isEmpty()) {
             throw new Excep("time is null");
         }
-        String trimStr = timeStr.trim();
-        String[] tArgs=trimStr.split(" ");
-        if(tArgs.length < 1){
-            throw  new Excep("datetime format error");
-        }else if(tArgs.length == 2){
-            if(tArgs[1].matches("^\\d+$")){
-                long minutes=Long.parseLong(tArgs[1]);
-                LocalTime lt = LocalTime.MIN.plusMinutes(minutes);
-                trimStr = tArgs[0]+" "+lt.format(DateTimeFormatter.ofPattern("HH:mm:ss").withLocale(Locale.ENGLISH));
-            }
-        }
-        String tStr = trimStr;
+        String tStr = timeStr.trim();
         // try all format
         return Arrays.stream(PATTERNS)
                 .map(DateTimeFormatter::ofPattern)
