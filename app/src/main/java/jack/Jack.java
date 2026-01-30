@@ -9,9 +9,19 @@ import jack.ui.Ui;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * The main class of the Jack application.
+ * Jack is a task management application that allows users to add, delete, mark, and unmark tasks.
+ * It also provides functionality to save tasks to a file and load them from a file.
+ */
 public class Jack {
     private final Ui ui;
     private Storage storage;
+    
+    /**
+     * Constructs a new Jack instance with the specified file path for storage.
+     * @param filePath The file path where tasks will be stored.
+     */
     public  Jack(String filePath){
         this.ui = new Ui();
         try{
@@ -21,6 +31,10 @@ public class Jack {
         }
     }
 
+    /**
+     * Runs the Jack application.
+     * This method initializes the UI, loads tasks from storage, and processes user commands.
+     */
     public void run(){
 
         Scanner input = new Scanner(System.in);
@@ -48,6 +62,11 @@ public class Jack {
         }
     }
 
+    /**
+     * The main method of the Jack application.
+     * It creates a new Jack instance and starts the application.
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Jack("./data/duke.txt").run();
     }

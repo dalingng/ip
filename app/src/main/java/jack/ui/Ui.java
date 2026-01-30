@@ -4,12 +4,25 @@ import jack.task.*;
 
 import java.util.ArrayList;
 
+/**
+ * The user interface class for the Jack application.
+ * Responsible for displaying messages to the user and handling user interactions.
+ */
 public class Ui {
     private static final String line = "____________________________________________________________";
+    
+    /**
+     * Displays a horizontal line separator.
+     */
     public void showLine(){
         System.out.println(line);
     }
 
+    /**
+     * Displays a message when a todo task is added successfully.
+     * @param list The current task list.
+     * @param todo The todo task that was added.
+     */
     public void todo(TaskList list, ToDo todo) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
@@ -18,6 +31,11 @@ public class Ui {
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
+    /**
+     * Displays a message when a deadline task is added successfully.
+     * @param list The current task list.
+     * @param deadline The deadline task that was added.
+     */
     public void deadline(TaskList list, Deadline deadline) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
@@ -26,6 +44,11 @@ public class Ui {
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
+    /**
+     * Displays a message when an event task is added successfully.
+     * @param list The current task list.
+     * @param event The event task that was added.
+     */
     public void event(TaskList list, Event event) {
         System.out.println(line);
         System.out.println("Got it. I've added this task:");
@@ -33,6 +56,12 @@ public class Ui {
         System.out.println(line);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
+    
+    /**
+     * Displays a message when a task is deleted successfully.
+     * @param list The current task list.
+     * @param t The task that was deleted.
+     */
     public void delete(TaskList list, Task t){
         System.out.println(line);
         System.out.println("Noted. I've removed this task:");
@@ -41,6 +70,9 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Displays a welcome message when the application starts.
+     */
     public void welcome() {
         System.out.println(line);
         System.out.println("Hello I'm Jack");
@@ -48,12 +80,19 @@ public class Ui {
         System.out.println(line);
     }
 
+    /**
+     * Displays a goodbye message when the application exits.
+     */
     public void bye() {
         System.out.println(line);
         System.out.println("Bye. Hope to see you again soon!");
         System.out.println(line);
     }
 
+    /**
+     * Displays all tasks in the current task list.
+     * @param list The task list to display.
+     */
     public void list(TaskList list) {
         System.out.println(line);
         System.out.println("Here are the tasks in your list:");
@@ -62,25 +101,45 @@ public class Ui {
         }
         System.out.println(line);
     }
+    
+    /**
+     * Displays a message when a task is marked as done.
+     */
     public void mark() {
         System.out.println(line);
         System.out.println("Nice! I've marked this task as done:");
     }
+    
+    /**
+     * Displays the task that was marked as done and a line separator.
+     * @param t The task that was marked as done.
+     */
     public void markSuccess(Task t){
         System.out.println("  " + t);
         System.out.println(line);
     }
 
+    /**
+     * Displays a message when a task is marked as not done.
+     */
     public void unmark() {
         System.out.println(line);
         System.out.println("OK, I've marked this task as not done yet:");
     }
+    
+    /**
+     * Displays the task that was marked as not done and a line separator.
+     * @param t The task that was marked as not done.
+     */
     public void unmarkSuccess(Task t) {
-
         System.out.println("  " + t);
         System.out.println(line);
     }
 
+    /**
+     * Displays an error message to the user.
+     * @param massage The error message to display.
+     */
     public void showError(String massage){
         System.out.println(line);
         System.out.println(massage);

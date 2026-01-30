@@ -7,7 +7,17 @@ import jack.task.Event;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parses user input into appropriate Command objects.
+ * This class is responsible for interpreting user commands and creating the corresponding command objects.
+ */
 public class Parser {
+    /**
+     * Parses the given string into a Command object.
+     * @param str The user input string to parse.
+     * @return The corresponding Command object based on the user input.
+     * @throws Excep If the input is not a valid command or if there's an error parsing the command.
+     */
     public static Command parse(String str) throws Excep {
         String regex = "^\\s*([a-zA-Z0-9_-]+)";
         Pattern pattern = Pattern.compile(regex);

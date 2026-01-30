@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"jack"},{"l":"jack.command"},{"l":"jack.storage"},{"l":"jack.task"},{"l":"jack.ui"},{"l":"所有程序包","u":"allpackages-index.html"}];updateSearchResults();

@@ -7,12 +7,21 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Save the tasks in the hard disk automatically whenever the task list changes. Load the data from the hard disk when the chatbot starts up. You may hard-code the file name and relative path from the project root e.g., ./data/duke.txt
+ * Handles the storage of tasks in the Jack application.
+ * Saves tasks to a file on the hard disk and loads them when the application starts.
  */
 public class Storage {
 
     private static String separator = " | ";
     private File targetFile;
+    
+    /**
+     * Constructs a new Storage instance with the specified file path.
+     * Creates the file and parent directories if they do not exist.
+     * @param path The file path where tasks will be stored.
+     * @throws Excep If the file cannot be created or if the path is not a file.
+     * @throws IOException If an I/O error occurs when creating directories.
+     */
     public Storage(String path) throws Excep,IOException{
 
         targetFile = new File(path);
@@ -35,6 +44,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the specified task list to the storage file.
+     * @param inputList The task list to save.
+     * @throws IOException If an I/O error occurs when writing to the file.
+     */
     public void save(TaskList inputList) throws IOException{
         try{
             FileOutputStream os = new FileOutputStream(targetFile.getPath(), false); // clean and writer
@@ -53,6 +67,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Reads tasks from the storage file and returns them as a TaskList.
+     * @return A TaskList containing all tasks read from the file.
+     * @throws FileNotFoundException If the storage file is not found.
+     * @throws IOException If an I/O error occurs when reading from the file.
+     */
     public TaskList read() throws FileNotFoundException,IOException{
         TaskList list = new TaskList();
         FileReader fileRead = new FileReader(targetFile.getPath());
@@ -70,10 +90,21 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Serializes a Task object to a string format for storage.
+     * @param task The task to serialize.
+     * @return A string representation of the task in storage format.
+     */
     public static String serialize(Task task){
         return String.join(separator,task.taskName(),task.isDone()?"1":"0",task.toTask());
     }
 
+    /**
+     * Deserializes a string from the storage file to a Task object.
+     * @param line The string to deserialize.
+     * @return A Task object created from the string.
+     * @throws Exception If the string format is invalid or the task type is unknown.
+     */
     public static Task deserialize(String line) throws Exception{
         String[] args = line.split(" \\| ");
         String type = args[0];

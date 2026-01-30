@@ -6,6 +6,8 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
+import org.gradle.external.javadoc.StandardJavadocDocletOptions
+
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -45,4 +47,15 @@ application {
 tasks.run {
     standardInput = System.`in`
     workingDir = project.rootDir
+}
+
+// Configure Javadoc task to generate documentation in root ./doc directory
+tasks.javadoc {
+    destinationDir = file("${project.rootDir}/doc")
+    options.encoding = "UTF-8"
+    options.overview = null
+    options.locale = "en_US"
+
+    // Include all Java files in the jack package
+    source = sourceSets["main"].allJava
 }
