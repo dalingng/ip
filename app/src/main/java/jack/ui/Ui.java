@@ -2,20 +2,18 @@ package jack.ui;
 
 import jack.task.*;
 
-import java.util.ArrayList;
-
 /**
  * The user interface class for the Jack application.
  * Responsible for displaying messages to the user and handling user interactions.
  */
 public class Ui {
-    private static final String line = "____________________________________________________________";
+    private static final String LINE = "____________________________________________________________";
     
     /**
      * Displays a horizontal line separator.
      */
     public void showLine() {
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -24,10 +22,10 @@ public class Ui {
      * @param todo The todo task that was added.
      */
     public void todo(TaskList list, ToDo todo) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + todo);
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
@@ -37,10 +35,10 @@ public class Ui {
      * @param deadline The deadline task that was added.
      */
     public void deadline(TaskList list, Deadline deadline) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + deadline);
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
 
@@ -50,10 +48,10 @@ public class Ui {
      * @param event The event task that was added.
      */
     public void event(TaskList list, Event event) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Got it. I've added this task:");
         System.out.println("  " + event);
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
     
@@ -63,30 +61,30 @@ public class Ui {
      * @param t The task that was deleted.
      */
     public void delete(TaskList list, Task t) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Noted. I've removed this task:");
         System.out.println("  " + t);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
      * Displays a welcome message when the application starts.
      */
     public void welcome() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Hello I'm Jack");
         System.out.println("What can I do for you?");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
      * Displays a goodbye message when the application exits.
      */
     public void bye() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Bye. Hope to see you again soon!");
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -94,19 +92,19 @@ public class Ui {
      * @param list The task list to display.
      */
     public void list(TaskList list) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Here are the tasks in your list:");
         for (int j = 1; j <= list.size(); j++) {
             System.out.println(j + "." + list.get(j - 1).toString());
         }
-        System.out.println(line);
+        System.out.println(LINE);
     }
     
     /**
      * Displays a message when a task is marked as done.
      */
     public void mark() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Nice! I've marked this task as done:");
     }
     
@@ -116,14 +114,14 @@ public class Ui {
      */
     public void markSuccess(Task t) {
         System.out.println("  " + t);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
      * Displays a message when a task is marked as not done.
      */
     public void unmark() {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("OK, I've marked this task as not done yet:");
     }
     
@@ -133,7 +131,7 @@ public class Ui {
      */
     public void unmarkSuccess(Task t) {
         System.out.println("  " + t);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -141,9 +139,9 @@ public class Ui {
      * @param massage The error message to display.
      */
     public void showError(String massage) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println(massage);
-        System.out.println(line);
+        System.out.println(LINE);
     }
 
     /**
@@ -152,7 +150,7 @@ public class Ui {
      * @param keyword The keyword to search for.
      */
     public void find(TaskList list, String keyword) {
-        System.out.println(line);
+        System.out.println(LINE);
         System.out.println("Here are the matching tasks in your list:");
         int count = 1;
         for (Task task : list) {
@@ -161,6 +159,6 @@ public class Ui {
                 count++;
             }
         }
-        System.out.println(line);
+        System.out.println(LINE);
     }
 }

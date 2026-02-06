@@ -44,13 +44,17 @@ public class Deadline extends Task {
      * @return "D" for deadline tasks.
      */
     @Override
-    public String taskName() { return "D"; }
+    public String taskName() {
+        return "D";
+    }
 
     /**
      * Returns the due date of the deadline task.
      * @return The due date of the deadline task.
      */
-    public String getDue() { return due; }
+    public String getDue() {
+        return due;
+    }
 
     /**
      * Creates a new Deadline task from the given task string.

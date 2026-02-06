@@ -48,7 +48,9 @@ public class Event extends Task {
      * @return "E" for event tasks.
      */
     @Override
-    public String taskName() { return "E"; }
+    public String taskName() {
+        return "E";
+    }
 
     /**
      * Creates a new Event task from the given task string.
@@ -84,11 +86,15 @@ public class Event extends Task {
      * Returns the start time of the event task.
      * @return The start time of the event task.
      */
-    public String getStart() { return start; }
+    public String getStart() {
+        return start;
+    }
     
     /**
      * Returns the end time of the event task.
      * @return The end time of the event task.
      */
-    public String getEnd() { return end; }
+    public String getEnd() {
+        return end;
+    }
 }

@@ -22,9 +22,9 @@ public class Jack {
      * Constructs a new Jack instance with the specified file path for storage.
      * @param filePath The file path where tasks will be stored.
      */
-    public  Jack(String filePath){
+    public Jack(String filePath) {
         this.ui = new Ui();
-        try{
+        try {
             this.storage = new Storage(filePath);
         } catch (Excep | IOException e) {
             throw new RuntimeException(e);
@@ -35,16 +35,16 @@ public class Jack {
      * Runs the Jack application.
      * This method initializes the UI, loads tasks from storage, and processes user commands.
      */
-    public void run(){
+    public void run() {
 
         Scanner input = new Scanner(System.in);
         TaskList tasks = new TaskList();
         ui.showLine();
         ui.welcome();
-        try{
+        try {
             storage = new Storage("./data/duke.txt");
             tasks = storage.read();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return;
         }
@@ -54,9 +54,9 @@ public class Jack {
             String command = input.nextLine();
             try {
                 Command cmd = Parser.parse(command);
-                cmd.execute(tasks,ui,storage);
+                cmd.execute(tasks, ui, storage);
                 isExis = cmd.isExit();
-            }catch (Exception e){
+            } catch (Exception e) {
                 ui.showError(e.getMessage());
             }
         }

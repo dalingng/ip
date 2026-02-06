@@ -30,7 +30,9 @@ public class ToDo extends Task {
      * @return "T" for todo tasks.
      */
     @Override
-    public String taskName() { return "T"; }
+    public String taskName() {
+        return "T";
+    }
 
     /**
      * Serializes the todo task to a string format for storage.

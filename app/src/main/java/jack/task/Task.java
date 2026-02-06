@@ -52,19 +52,25 @@ public class Task {
      * Returns whether the task is done.
      * @return true if the task is done, false otherwise.
      */
-    public boolean isDone() { return isDone; }
+    public boolean isDone() {
+        return isDone;
+    }
 
     /**
      * Returns the task type name.
      * @return "N" for the base Task class.
      */
-    public String taskName() { return "N"; }
+    public String taskName() {
+        return "N";
+    }
 
     /**
      * Returns the description of the task.
      * @return The description of the task.
      */
-    public String getDescription() { return description; }
+    public String getDescription() {
+        return description;
+    }
 
     /**
      * Returns the task information as a string for storage.
