@@ -63,7 +63,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "jack.Launcher"
+    mainClass.set("jack.Launcher")
 }
 tasks.run {
     standardInput = System.`in`
@@ -86,7 +86,14 @@ tasks.jar {
     manifest {
         attributes["Main-Class"] = "jack.Launcher"
     }
-
+    from({
+        configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
+    }) {
+        exclude("META-INF/*.SF")
+        exclude("META-INF/*.DSA")
+        exclude("META-INF/*.RSA")
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 // Configure CheckStyle
