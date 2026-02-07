@@ -1,11 +1,11 @@
 package jack.command;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import jack.Excep;
 import jack.task.Deadline;
 import jack.task.Event;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Parses user input into appropriate Command objects.

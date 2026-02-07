@@ -12,7 +12,7 @@ import jack.ui.Ui;
  */
 public class DeleteCommand extends Command {
     private int idx;
-    
+
     /**
      * Constructs a new DeleteCommand with the specified task index.
      * @param idx The index of the task to delete (1-based).
@@ -20,7 +20,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int idx) {
         this.idx = idx - 1;
     }
-    
+
     /**
      * Executes the delete command, which removes the specified task from the task list.
      * @param tasks The task list containing the task to delete.

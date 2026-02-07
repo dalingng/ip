@@ -1,9 +1,9 @@
 package jack.task;
 
+import java.time.LocalDateTime;
+
 import jack.DateTimeTool;
 import jack.Excep;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a deadline task, which is a type of task with a specific deadline.
@@ -83,3 +83,4 @@ public class Deadline extends Task {
         return this.getDescription() + " /by " + this.getDue();
     }
 }
+

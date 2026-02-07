@@ -13,3 +13,4 @@ public class Excep extends Exception {
         super(message);
     }
 }
+

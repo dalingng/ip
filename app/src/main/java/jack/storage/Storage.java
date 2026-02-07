@@ -1,10 +1,21 @@
 package jack.storage;
 
-import jack.Excep;
-import jack.task.*;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
+
+import jack.Excep;
+import jack.task.Deadline;
+import jack.task.Event;
+import jack.task.Task;
+import jack.task.TaskList;
+import jack.task.ToDo;
 
 /**
  * Handles the storage of tasks in the Jack application.
@@ -14,7 +25,6 @@ public class Storage {
 
     private static String separator = " | ";
     private File targetFile;
-    
     /**
      * Constructs a new Storage instance with the specified file path.
      * Creates the file and parent directories if they do not exist.
