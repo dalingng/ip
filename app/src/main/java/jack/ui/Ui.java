@@ -1,6 +1,10 @@
 package jack.ui;
 
-import jack.task.*;
+import jack.task.Deadline;
+import jack.task.Event;
+import jack.task.Task;
+import jack.task.TaskList;
+import jack.task.ToDo;
 
 /**
  * The user interface class for the Jack application.
@@ -8,7 +12,8 @@ import jack.task.*;
  */
 public class Ui {
     private static final String LINE = "____________________________________________________________";
-    
+
+
     /**
      * Displays a horizontal line separator.
      */
@@ -54,7 +59,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Now you have " + list.size() + " tasks in the list.");
     }
-    
+
     /**
      * Displays a message when a task is deleted successfully.
      * @param list The current task list.
@@ -99,7 +104,7 @@ public class Ui {
         }
         System.out.println(LINE);
     }
-    
+
     /**
      * Displays a message when a task is marked as done.
      */
@@ -107,7 +112,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Nice! I've marked this task as done:");
     }
-    
+
     /**
      * Displays the task that was marked as done and a line separator.
      * @param t The task that was marked as done.
@@ -124,7 +129,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("OK, I've marked this task as not done yet:");
     }
-    
+
     /**
      * Displays the task that was marked as not done and a line separator.
      * @param t The task that was marked as not done.

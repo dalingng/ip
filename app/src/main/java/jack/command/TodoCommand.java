@@ -11,7 +11,7 @@ import jack.ui.Ui;
  */
 public class TodoCommand extends Command {
     private String text;
-    
+
     /**
      * Constructs a new TodoCommand with the specified todo task description.
      * @param text The description of the todo task to add.
@@ -19,7 +19,7 @@ public class TodoCommand extends Command {
     public TodoCommand(String text) {
         this.text = text;
     }
-    
+
     /**
      * Executes the todo command, which adds a new todo task to the task list.
      * @param tasks The task list to add the todo task to.

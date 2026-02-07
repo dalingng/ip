@@ -1,16 +1,17 @@
 package jack;
 
-import jack.storage.Storage;
-import jack.task.Task;
-import jack.task.TaskList;
-import jack.task.ToDo;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import jack.storage.Storage;
+import jack.task.Task;
+import jack.task.TaskList;
+import jack.task.ToDo;
 
 public class StorageTest {
     @Test

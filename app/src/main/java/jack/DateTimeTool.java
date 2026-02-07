@@ -19,10 +19,6 @@ public class DateTimeTool {
     private DateTimeTool() {
     }
 
-    private static DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("MMM dd yyyy h.mm.ssa").withLocale(Locale.ENGLISH);
-    private static DateTimeFormatter timeFormatM = DateTimeFormatter.ofPattern("MMM dd yyyy h.mma").withLocale(Locale.ENGLISH);
-    private static DateTimeFormatter timeFormatH = DateTimeFormatter.ofPattern("MMM dd yyyy ha").withLocale(Locale.ENGLISH);
-    
     /**
      * Formats a LocalDateTime object into a human-readable string.
      * Uses different formats based on the precision of the time (seconds, minutes, or hours).
@@ -30,6 +26,12 @@ public class DateTimeTool {
      * @return A formatted string representation of the date and time.
      */
     public static String formatDateTime(LocalDateTime time) {
+        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern(
+                "MMM dd yyyy h.mm.ssa").withLocale(Locale.ENGLISH);
+        DateTimeFormatter timeFormatM = DateTimeFormatter.ofPattern(
+                "MMM dd yyyy h.mma").withLocale(Locale.ENGLISH);
+        DateTimeFormatter timeFormatH = DateTimeFormatter.ofPattern(
+                "MMM dd yyyy ha").withLocale(Locale.ENGLISH);
         if (time.getSecond() == 0 && time.getMinute() == 0) {
             return time.format(timeFormatH);
         }
@@ -38,8 +40,16 @@ public class DateTimeTool {
         }
         return time.format(timeFormat);
     }
-    
-    private static final String[] PATTERNS = {
+
+    /**
+     * Parses a string into a LocalDateTime object.
+     * Tries multiple date and time formats to handle different input styles.
+     * @param timeStr The string to parse as a date and time.
+     * @return A LocalDateTime object representing the parsed date and time.
+     * @throws Excep If the string is null, empty, or cannot be parsed into any supported format.
+     */
+    public static LocalDateTime parseDateTime(String timeStr) throws Excep {
+        String[] patterns = new String[] {
             "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd",
             "yyyy_MM_dd HH:mm:ss", "yyyy_MM_dd", "yyyyMMddHHmmss", "yyyyMMdd",
             "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy",
@@ -52,23 +62,14 @@ public class DateTimeTool {
             "MMM dd yyyy H.m", "MMM dd yyyy h.ma", "MMM dd yyyy h.m a",
             "MMM dd yyyy H", "MMM dd yyyy ha", "MMM dd yyyy h a",
             "dd-MMM-yyyy HH:mm:ss", "dd-MMM-yyyy", "MMM dd yyyy", "MMM dd yyyy HH:mm:ss"
-    };
-
-    /**
-     * Parses a string into a LocalDateTime object.
-     * Tries multiple date and time formats to handle different input styles.
-     * @param timeStr The string to parse as a date and time.
-     * @return A LocalDateTime object representing the parsed date and time.
-     * @throws Excep If the string is null, empty, or cannot be parsed into any supported format.
-     */
-    public static LocalDateTime parseDateTime(String timeStr) throws Excep {
+        };
         // is not null
         if (timeStr == null || timeStr.trim().isEmpty()) {
             throw new Excep("time is null");
         }
         String tStr = timeStr.trim();
         // try all format
-        return Arrays.stream(PATTERNS)
+        return Arrays.stream(patterns)
                 .map(DateTimeFormatter::ofPattern)
                 .map(formatter -> {
                     formatter = formatter.withLocale(Locale.ENGLISH);

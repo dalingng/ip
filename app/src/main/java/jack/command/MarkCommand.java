@@ -12,7 +12,7 @@ import jack.ui.Ui;
  */
 public class MarkCommand extends Command {
     private int idx;
-    
+
     /**
      * Constructs a new MarkCommand with the specified task index.
      * @param idx The index of the task to mark as done (1-based).
@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
     public MarkCommand(int idx) {
         this.idx = idx - 1;
     }
-    
+
     /**
      * Executes the mark command, which marks the specified task as done.
      * @param tasks The task list containing the task to mark.

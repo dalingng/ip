@@ -1,9 +1,9 @@
 package jack.task;
 
+import java.time.LocalDateTime;
+
 import jack.DateTimeTool;
 import jack.Excep;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents an event task, which is a type of task with a specific start and end time.
@@ -89,7 +89,7 @@ public class Event extends Task {
     public String getStart() {
         return start;
     }
-    
+
     /**
      * Returns the end time of the event task.
      * @return The end time of the event task.
@@ -98,3 +98,4 @@ public class Event extends Task {
         return end;
     }
 }
+

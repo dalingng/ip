@@ -1,10 +1,12 @@
 package jack;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
 import jack.task.Deadline;
 import jack.task.Event;
 import jack.task.ToDo;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class TasksTest {
     @Test

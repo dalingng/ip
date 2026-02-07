@@ -12,7 +12,7 @@ import jack.ui.Ui;
  */
 public class UnmarkCommand extends Command {
     private int idx;
-    
+
     /**
      * Constructs a new UnmarkCommand with the specified task index.
      * @param idx The index of the task to mark as not done (1-based).
@@ -20,7 +20,7 @@ public class UnmarkCommand extends Command {
     public UnmarkCommand(int idx) {
         this.idx = idx - 1;
     }
-    
+
     /**
      * Executes the unmark command, which marks the specified task as not done.
      * @param tasks The task list containing the task to unmark.
