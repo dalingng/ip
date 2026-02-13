@@ -19,6 +19,8 @@ public class Parser {
      * @throws Excep If the input is not a valid command or if there's an error parsing the command.
      */
     public static Command parse(String str) throws Excep {
+        assert str != null : "Input string cannot be null";
+        
         String regex = "^\\s*([a-zA-Z0-9_-]+)";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
@@ -26,6 +28,9 @@ public class Parser {
             throw new Excep("unsupper command");
         }
         String tag = matcher.group(1);
+        assert tag != null : "Command tag cannot be null";
+        assert !tag.isEmpty() : "Command tag cannot be empty";
+        
         // params string
         int endIndex = matcher.end();
         String remaining = str.substring(endIndex);

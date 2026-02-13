@@ -49,6 +49,7 @@ public class ToDo extends Task {
      * @throws Excep If the text is empty.
      */
     public static ToDo taskToToDo(String text) throws Excep {
+        assert text != null : "Text cannot be null";
         if (text.isEmpty()) {
             throw new Excep("nothing todo i also want");
         }
