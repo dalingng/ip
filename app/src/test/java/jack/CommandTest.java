@@ -80,7 +80,7 @@ public class CommandTest {
         Excep exception = assertThrows(Excep.class, () -> {
             Parser.parse("");
         });
-        assertEquals("unsupper command", exception.getMessage());
+        assertEquals("unsupported command", exception.getMessage());
     }
 
     @Test

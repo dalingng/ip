@@ -25,6 +25,7 @@ public class Storage {
 
     private static final String SEPARATOR = " | ";
     private File storageFile;
+
     /**
      * Constructs a new Storage instance with the specified file path.
      * Creates the file and parent directories if they do not exist.
@@ -35,7 +36,7 @@ public class Storage {
     public Storage(String path) throws Excep, IOException {
         assert path != null : "File path cannot be null";
         assert !path.isEmpty() : "File path cannot be empty";
-        
+
         storageFile = new File(path);
 
         if (!storageFile.exists()) {
@@ -161,23 +162,23 @@ public class Storage {
     public static Task deserialize(String line) throws Exception {
         assert line != null : "Line cannot be null";
         assert !line.isEmpty() : "Line cannot be empty";
-        
-        String[] args = line.split(" \\|" );
+
+        String[] args = line.split(" \\|");
         assert args.length >= 3 : "Line must have at least 3 parts: type | status | command";
-        
+
         String type = args[0];
         assert type != null : "Task type cannot be null";
         assert !type.isEmpty() : "Task type cannot be empty";
-        
+
         String statusStr = args[1];
         assert statusStr != null : "Status string cannot be null";
-        assert statusStr.equals("0") || statusStr.equals("1") : "Status must be '0' or '1'";
-        
-        boolean mark = statusStr.equals("0") ? false : true;
+        assert statusStr.trim().equals("0") || statusStr.trim().equals("1") : "Status must be '0' or '1'";
+
+        boolean mark = statusStr.trim().equals("0") ? false : true;
         String command = args[2];
         assert command != null : "Command string cannot be null";
         assert !command.isEmpty() : "Command string cannot be empty";
-        
+
         Task task;
         switch (type) {
         case "E":
@@ -193,7 +194,7 @@ public class Storage {
             throw new Exception("Unknown task type: " + type);
         }
         assert task != null : "Created task cannot be null";
-        
+
         if (mark) {
             task.mark();
         }

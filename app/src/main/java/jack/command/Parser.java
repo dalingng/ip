@@ -8,21 +8,26 @@ import jack.task.Deadline;
 import jack.task.Event;
 
 /**
- * Parses user input into appropriate Command objects.
- * This class is responsible for interpreting user commands and creating the corresponding command objects.
+ * Parses user input into executable commands.
+ * Handles command recognition and argument extraction.
  */
 public class Parser {
+
+    private static final Pattern COMMAND_PATTERN = Pattern.compile("^(\\S+)\\s*");
+
     /**
-     * Parses the given string into a Command object.
-     * @param userInput The user input string to parse.
-     * @return The corresponding Command object based on the user input.
-     * @throws Excep If the input is not a valid command or if there's an error parsing the command.
+     * Parses user input and returns the corresponding command.
+     * @param userInput The user input string.
+     * @return The parsed command.
+     * @throws Excep If the command is invalid or arguments are missing.
      */
     public static Command parse(String userInput) throws Excep {
-        assert userInput != null : "Input string cannot be null";
-        String regex = "^\\s*([a-zA-Z0-9_-]+)";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(userInput);
+        assert userInput != null : "User input cannot be null";
+        if (userInput == null || userInput.trim().isEmpty()) {
+            throw new Excep("unsupported command");
+        }
+
+        Matcher matcher = COMMAND_PATTERN.matcher(userInput);
 
         if (!matcher.find()) {
             throw new Excep("unsupported command");
@@ -30,7 +35,7 @@ public class Parser {
         String tag = matcher.group(1);
         assert tag != null : "Command tag cannot be null";
         assert !tag.isEmpty() : "Command tag cannot be empty";
-        
+
         // params string
         int endIndex = matcher.end();
         String remaining = userInput.substring(endIndex);
@@ -68,23 +73,40 @@ public class Parser {
             case "find":
                 cmd = new FindCommand(commandArgs);
                 break;
+            case "remind":
+                cmd = new ReminderCommand();
+                break;
             default:
                 throw new Excep("Wrong command");
             }
-        } catch (NumberFormatException e) {
-            throw new Excep("Invalid task index. Please provide a valid number.");
+        } catch (Excep e) {
+            throw e;
+        } catch (Exception e) {
+            throw new Excep("Invalid command arguments: " + e.getMessage());
         }
 
         return cmd;
     }
 
     /**
-     * Parses the task index from the command arguments.
-     * @param args The command arguments containing the task index.
-     * @return The parsed task index.
-     * @throws NumberFormatException If the arguments do not contain a valid number.
+     * Parses a task index from a string.
+     * @param indexStr The string containing the index.
+     * @return The parsed index.
+     * @throws Excep If the index is invalid.
      */
-    private static int parseTaskIndex(String args) {
-        return Integer.parseInt(args);
+    private static int parseTaskIndex(String indexStr) throws Excep {
+        if (indexStr.isEmpty()) {
+            throw new Excep("Task index cannot be empty");
+        }
+
+        try {
+            int index = Integer.parseInt(indexStr);
+            if (index < 1) {
+                throw new Excep("Task index must be positive");
+            }
+            return index;
+        } catch (NumberFormatException e) {
+            throw new Excep("Invalid task index: " + indexStr);
+        }
     }
 }
