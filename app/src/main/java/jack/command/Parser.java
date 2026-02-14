@@ -14,18 +14,18 @@ import jack.task.Event;
 public class Parser {
     /**
      * Parses the given string into a Command object.
-     * @param str The user input string to parse.
+     * @param userInput The user input string to parse.
      * @return The corresponding Command object based on the user input.
      * @throws Excep If the input is not a valid command or if there's an error parsing the command.
      */
-    public static Command parse(String str) throws Excep {
-        assert str != null : "Input string cannot be null";
-        
+    public static Command parse(String userInput) throws Excep {
+        assert userInput != null : "Input string cannot be null";
         String regex = "^\\s*([a-zA-Z0-9_-]+)";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(str);
+        Matcher matcher = pattern.matcher(userInput);
+
         if (!matcher.find()) {
-            throw new Excep("unsupper command");
+            throw new Excep("unsupported command");
         }
         String tag = matcher.group(1);
         assert tag != null : "Command tag cannot be null";
@@ -33,36 +33,58 @@ public class Parser {
         
         // params string
         int endIndex = matcher.end();
-        String remaining = str.substring(endIndex);
-        String taskStr = remaining.trim();
+        String remaining = userInput.substring(endIndex);
+        String commandArgs = remaining.trim();
 
         Command cmd;
-        if (tag.equalsIgnoreCase("bye")) {
-            cmd = new ByeCommand();
-        } else if (tag.equalsIgnoreCase("list")) {
-            cmd = new ListCommand();
-        } else if (tag.equalsIgnoreCase("unmark")) {
-            int idx = Integer.parseInt(taskStr);
-            cmd = new UnmarkCommand(idx);
-        } else if (tag.equalsIgnoreCase("mark")) {
-            int idx = Integer.parseInt(taskStr);
-            cmd = new MarkCommand(idx);
-        } else if (tag.equalsIgnoreCase("delete")) {
-            int idx = Integer.parseInt(taskStr);
-            cmd = new DeleteCommand(idx);
-        } else if (tag.equalsIgnoreCase("todo")) {
-            cmd = new TodoCommand(taskStr);
-        } else if (tag.equalsIgnoreCase("event")) {
-            Event event = Event.taskToEvent(taskStr);
-            cmd = new EventCommand(event);
-        } else if (tag.equalsIgnoreCase("deadline")) {
-            Deadline deadline = Deadline.taskToDeadline(taskStr);
-            cmd = new DeadlineCommand(deadline);
-        } else if (tag.equalsIgnoreCase("find")) {
-            cmd = new FindCommand(taskStr);
-        } else {
-            throw new Excep("Wrong command");
+        try {
+            switch (tag.toLowerCase()) {
+            case "bye":
+                cmd = new ByeCommand();
+                break;
+            case "list":
+                cmd = new ListCommand();
+                break;
+            case "unmark":
+                cmd = new UnmarkCommand(parseTaskIndex(commandArgs));
+                break;
+            case "mark":
+                cmd = new MarkCommand(parseTaskIndex(commandArgs));
+                break;
+            case "delete":
+                cmd = new DeleteCommand(parseTaskIndex(commandArgs));
+                break;
+            case "todo":
+                cmd = new TodoCommand(commandArgs);
+                break;
+            case "event":
+                Event event = Event.taskToEvent(commandArgs);
+                cmd = new EventCommand(event);
+                break;
+            case "deadline":
+                Deadline deadline = Deadline.taskToDeadline(commandArgs);
+                cmd = new DeadlineCommand(deadline);
+                break;
+            case "find":
+                cmd = new FindCommand(commandArgs);
+                break;
+            default:
+                throw new Excep("Wrong command");
+            }
+        } catch (NumberFormatException e) {
+            throw new Excep("Invalid task index. Please provide a valid number.");
         }
+
         return cmd;
+    }
+
+    /**
+     * Parses the task index from the command arguments.
+     * @param args The command arguments containing the task index.
+     * @return The parsed task index.
+     * @throws NumberFormatException If the arguments do not contain a valid number.
+     */
+    private static int parseTaskIndex(String args) {
+        return Integer.parseInt(args);
     }
 }

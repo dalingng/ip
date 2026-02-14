@@ -23,12 +23,12 @@ import jack.task.ToDo;
  */
 public class Storage {
 
-    private static String separator = " | ";
-    private File targetFile;
+    private static final String SEPARATOR = " | ";
+    private File storageFile;
     /**
      * Constructs a new Storage instance with the specified file path.
      * Creates the file and parent directories if they do not exist.
-     * @param path The file path where tasks will be stored.
+     * @param filePath The file path where tasks will be stored.
      * @throws Excep If the file cannot be created or if the path is not a file.
      * @throws IOException If an I/O error occurs when creating directories.
      */
@@ -36,49 +36,77 @@ public class Storage {
         assert path != null : "File path cannot be null";
         assert !path.isEmpty() : "File path cannot be empty";
         
-        targetFile = new File(path);
+        storageFile = new File(path);
 
-        if (!targetFile.exists()) {
-            File parentDir = targetFile.getParentFile();
+        if (!storageFile.exists()) {
+            File parentDir = storageFile.getParentFile();
             if (parentDir != null && !parentDir.exists()) {
                 if (!parentDir.mkdirs()) {
                     throw new IOException();
                 }
             }
 
-            boolean isCreated = targetFile.createNewFile();
+            boolean isCreated = storageFile.createNewFile();
             if (!isCreated) {
                 throw new Excep("Create File Fail");
             }
         }
-        if (!targetFile.isFile()) {
+
+        storageFile = new File(path);
+
+        if (!storageFile.exists()) {
+            createStorageFile();
+        } else if (!storageFile.isFile()) {
             throw new Excep("Path is not a file");
         }
     }
 
     /**
+     * Creates the storage file and parent directories if they do not exist.
+     * @throws IOException If an I/O error occurs when creating directories or file.
+     * @throws Excep If the file cannot be created.
+     */
+    private void createStorageFile() throws IOException, Excep {
+        File parentDir = storageFile.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            if (!parentDir.mkdirs()) {
+                throw new IOException("Failed to create parent directories");
+            }
+        }
+
+        boolean isCreated = storageFile.createNewFile();
+        if (!isCreated) {
+            throw new Excep("Create File Fail");
+        }
+    }
+
+    /**
      * Saves the specified task list to the storage file.
-     * @param inputList The task list to save.
+     * @param taskList The task list to save.
      * @throws IOException If an I/O error occurs when writing to the file.
      */
-    public void save(TaskList inputList) throws IOException {
-        assert inputList != null : "Task list cannot be null";
-        assert targetFile != null : "Target file cannot be null";
-        
-        try {
-            FileOutputStream os = new FileOutputStream(targetFile.getPath(), false); // clean and writer
-            OutputStreamWriter ow = new OutputStreamWriter(os, StandardCharsets.UTF_8);
-            BufferedWriter bw = new BufferedWriter(ow);
-            for (int i = 0; i < inputList.size(); i++) {
-                Task task = inputList.get(i);
+    public void save(TaskList taskList) throws IOException {
+        assert taskList != null : "Task list cannot be null";
+        assert storageFile != null : "Target file cannot be null";
+        if (taskList == null) {
+            throw new IllegalArgumentException("Task list cannot be null");
+        }
+
+        try (FileOutputStream os = new FileOutputStream(storageFile.getPath(), false);
+             OutputStreamWriter ow = new OutputStreamWriter(os, StandardCharsets.UTF_8);
+             BufferedWriter bw = new BufferedWriter(ow)) {
+
+            for (Task task : taskList) {
                 assert task != null : "Task cannot be null";
-                bw.write(serialize(task));
-                bw.newLine();
+                if (task != null) {
+                    bw.write(serialize(task));
+                    bw.newLine();
+                }
             }
+
             bw.flush();
-            bw.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.err.println("Error saving tasks: " + e.getMessage());
             throw e;
         }
     }
@@ -90,20 +118,26 @@ public class Storage {
      * @throws IOException If an I/O error occurs when reading from the file.
      */
     public TaskList read() throws FileNotFoundException, IOException {
-        TaskList list = new TaskList();
-        FileReader fileRead = new FileReader(targetFile.getPath());
-        BufferedReader read = new BufferedReader(fileRead);
-        String currentLine = "";
-        while ((currentLine = read.readLine()) != null) {
-            try {
-                list.add(deserialize(currentLine));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
+        TaskList taskList = new TaskList();
+
+        try (FileReader fileReader = new FileReader(storageFile.getPath());
+             BufferedReader bufferedReader = new BufferedReader(fileReader)) {
+
+            String currentLine;
+            while ((currentLine = bufferedReader.readLine()) != null) {
+                try {
+                    Task task = deserialize(currentLine);
+                    if (task != null) {
+                        taskList.add(task);
+                    }
+                } catch (Exception e) {
+                    System.err.println("Error reading task: " + e.getMessage());
+                }
             }
         }
 
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
-        return list;
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        return taskList;
     }
 
     /**
@@ -112,7 +146,10 @@ public class Storage {
      * @return A string representation of the task in storage format.
      */
     public static String serialize(Task task) {
-        return String.join(separator, task.taskName(), task.isDone() ? "1" : "0", task.toTask());
+        if (task == null) {
+            throw new IllegalArgumentException("Task cannot be null");
+        }
+        return String.join(SEPARATOR, task.taskName(), task.isDone() ? "1" : "0", task.toTask());
     }
 
     /**
@@ -142,20 +179,25 @@ public class Storage {
         assert !command.isEmpty() : "Command string cannot be empty";
         
         Task task;
-        if (type.equals("E")) {
+        switch (type) {
+        case "E":
             task = Event.taskToEvent(command);
-        } else if (type.equals("D")) {
+            break;
+        case "D":
             task = Deadline.taskToDeadline(command);
-        } else if (type.equals("T")) {
+            break;
+        case "T":
             task = ToDo.taskToToDo(command);
-        } else {
-            throw new Exception("unknown data type");
+            break;
+        default:
+            throw new Exception("Unknown task type: " + type);
         }
         assert task != null : "Created task cannot be null";
         
         if (mark) {
             task.mark();
         }
+
         return task;
     }
 }
