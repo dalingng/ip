@@ -3,6 +3,7 @@ ____________________________________________________________
 Hello I'm Jack
 What can I do for you?
 ____________________________________________________________
+Now you have 0 tasks in the list.
 ____________________________________________________________
 Got it. I've added this task:
   [T][ ] borrow book
@@ -10,17 +11,19 @@ ____________________________________________________________
 Now you have 1 tasks in the list.
 ____________________________________________________________
 Here are the tasks in your list:
+
 1.[T][ ] borrow book
 ____________________________________________________________
+Not supported datetime format：Sunday
 ____________________________________________________________
-Got it. I've added this task:
-  [D][ ] return book (by: Sunday)
+Deadline task added: [D][ ] return book (by: Sunday)
+ [D][ ] return book (by: Sunday)
 ____________________________________________________________
 Now you have 2 tasks in the list.
+Not supported datetime format：Mon 2pm
 ____________________________________________________________
 Got it. I've added this task:
   [E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
 Now you have 3 tasks in the list.
 ____________________________________________________________
 Bye. Hope to see you again soon!
