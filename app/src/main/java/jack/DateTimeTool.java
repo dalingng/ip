@@ -61,7 +61,8 @@ public class DateTimeTool {
             "MMM dd yyyy HH.mm", "MMM dd yyyy hh.mma", "MMM dd yyyy hh.mm a",
             "MMM dd yyyy H.m", "MMM dd yyyy h.ma", "MMM dd yyyy h.m a",
             "MMM dd yyyy H", "MMM dd yyyy ha", "MMM dd yyyy h a",
-            "dd-MMM-yyyy HH:mm:ss", "dd-MMM-yyyy", "MMM dd yyyy", "MMM dd yyyy HH:mm:ss"
+            "dd-MMM-yyyy HH:mm:ss", "dd-MMM-yyyy", "MMM dd yyyy", "MMM dd yyyy HH:mm:ss",
+            "MMM dd yyyy h.mm.ssa"
         };
         // is not null
         if (timeStr == null || timeStr.trim().isEmpty()) {

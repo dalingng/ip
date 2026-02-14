@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import jack.Excep;
 import jack.task.Deadline;
 import jack.task.Event;
+import jack.task.Note;
 import jack.task.Task;
 import jack.task.TaskList;
 import jack.task.ToDo;
@@ -163,7 +164,7 @@ public class Storage {
         assert line != null : "Line cannot be null";
         assert !line.isEmpty() : "Line cannot be empty";
 
-        String[] args = line.split(" \\|");
+        String[] args = line.split(" \\| ");
         assert args.length >= 3 : "Line must have at least 3 parts: type | status | command";
 
         String type = args[0];
@@ -175,7 +176,7 @@ public class Storage {
         assert statusStr.trim().equals("0") || statusStr.trim().equals("1") : "Status must be '0' or '1'";
 
         boolean mark = statusStr.trim().equals("0") ? false : true;
-        String command = args[2];
+        String command = args[2].trim();
         assert command != null : "Command string cannot be null";
         assert !command.isEmpty() : "Command string cannot be empty";
 
@@ -189,6 +190,9 @@ public class Storage {
             break;
         case "T":
             task = ToDo.taskToToDo(command);
+            break;
+        case "N":
+            task = Note.taskToNote(command);
             break;
         default:
             throw new Exception("Unknown task type: " + type);
