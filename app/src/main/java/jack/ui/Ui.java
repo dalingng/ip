@@ -114,13 +114,20 @@ public class Ui {
         System.out.println(LINE);
         String msg = "Here are the tasks in your list:\n";
         System.out.println(msg);
-        for (int j = 1; j <= list.size(); j++) {
-            String taskMsg = j + "." + list.get(j - 1).toString();
-            msg += "\n" + taskMsg;
-            System.out.println(taskMsg);
-        }
+
+        StringBuilder resultMsg = new StringBuilder(msg);
+        final int[] index = {1};
+
+        list.stream()
+            .forEach(task -> {
+                String taskMsg = index[0] + "." + task.toString();
+                System.out.println(taskMsg);
+                resultMsg.append(taskMsg).append("\n");
+                index[0]++;
+            });
+
         System.out.println(LINE);
-        return msg;
+        return resultMsg.toString();
     }
 
     /**
@@ -184,16 +191,20 @@ public class Ui {
         System.out.println(LINE);
         String msg = "Here are the matching tasks in your list:\n";
         System.out.println(msg);
-        int count = 1;
-        for (Task task : list) {
-            if (task.getDescription().contains(keyword)) {
-                String taskMsg = count + "." + task.toString();
+
+        StringBuilder resultMsg = new StringBuilder(msg);
+        final int[] count = {1};
+
+        list.stream()
+            .filter(task -> task.getDescription().contains(keyword))
+            .forEach(task -> {
+                String taskMsg = count[0] + "." + task.toString();
                 System.out.println(taskMsg);
-                msg += taskMsg + "\n";
-                count++;
-            }
-        }
+                resultMsg.append(taskMsg).append("\n");
+                count[0]++;
+            });
+
         System.out.println(LINE);
-        return msg;
+        return resultMsg.toString();
     }
 }
