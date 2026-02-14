@@ -76,6 +76,9 @@ public class Parser {
             case "remind":
                 cmd = new ReminderCommand();
                 break;
+            case "undo":
+                cmd = new UndoCommand();
+                break;
             default:
                 throw new Excep("Wrong command");
             }

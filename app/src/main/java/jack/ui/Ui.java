@@ -85,6 +85,21 @@ public class Ui {
     }
 
     /**
+     * Displays a message when a task is undone successfully.
+     * @param list The current task list.
+     */
+    public String undo(TaskList list) {
+        System.out.println(LINE);
+        String msg = "Undo successful. Restored previous state.";
+        System.out.println(msg);
+        String numMsg = "Now you have " + list.size() + " tasks in the list.";
+        System.out.println(numMsg);
+        System.out.println(LINE);
+        msg += "\n" + numMsg;
+        return msg;
+    }
+
+    /**
      * Displays a welcome message when the application starts.
      */
     public String welcome() {
