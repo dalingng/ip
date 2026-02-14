@@ -57,6 +57,7 @@ public class ReminderCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        ui.showLine();
         LocalDateTime now = LocalDateTime.now();
 
         List<TaskWithDueDate> upcomingTasks = new ArrayList<>();
@@ -98,6 +99,7 @@ public class ReminderCommand extends Command {
 
         String result = reminders.toString();
         System.out.println(result);
+        ui.showLine();
         return result;
     }
 
