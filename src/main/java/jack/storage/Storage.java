@@ -136,6 +136,9 @@ public class Storage {
                     System.err.println("Error reading task: " + e.getMessage());
                 }
             }
+        } catch (IOException e) {
+            System.err.println("Error reading tasks: " + e.getMessage());
+            throw e;
         }
 
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");

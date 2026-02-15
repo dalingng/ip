@@ -10,6 +10,9 @@ import java.util.List;
 import jack.DateTimeTool;
 import jack.Excep;
 import jack.storage.Storage;
+import jack.task.Deadline;
+import jack.task.Event;
+import jack.task.Task;
 import jack.task.TaskList;
 import jack.ui.Ui;
 
@@ -17,17 +20,17 @@ import jack.ui.Ui;
  * Represents a task with its due date for sorting.
  */
 class TaskWithDueDate {
-    private jack.task.Task task;
+    private Task task;
     private LocalDateTime dueDate;
     private int index;
 
-    TaskWithDueDate(jack.task.Task task, LocalDateTime dueDate, int index) {
+    TaskWithDueDate(Task task, LocalDateTime dueDate, int index) {
         this.task = task;
         this.dueDate = dueDate;
         this.index = index;
     }
 
-    public jack.task.Task getTask() {
+    public Task getTask() {
         return task;
     }
 
@@ -45,7 +48,6 @@ class TaskWithDueDate {
  * Displays tasks that are due within a specified time period.
  */
 public class ReminderCommand extends Command {
-    private static final int DEFAULT_HOURS = 24;
 
     /**
      * Executes the reminder command.
@@ -108,8 +110,8 @@ public class ReminderCommand extends Command {
      * @param task The task to check.
      * @return true if the task has a due date, false otherwise.
      */
-    private boolean hasDueDate(jack.task.Task task) {
-        return task instanceof jack.task.Deadline || task instanceof jack.task.Event;
+    private boolean hasDueDate(Task task) {
+        return task instanceof Deadline || task instanceof Event;
     }
 
     /**
@@ -118,12 +120,12 @@ public class ReminderCommand extends Command {
      * @return The due date of the task, or null if the task has no due date.
      * @throws Excep If there is an error parsing the date.
      */
-    private LocalDateTime getDueDate(jack.task.Task task) throws Excep {
-        if (task instanceof jack.task.Deadline) {
-            jack.task.Deadline deadline = (jack.task.Deadline) task;
+    private LocalDateTime getDueDate(Task task) throws Excep {
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
             return DateTimeTool.parseDateTime(deadline.getDue());
-        } else if (task instanceof jack.task.Event) {
-            jack.task.Event event = (jack.task.Event) task;
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
             return DateTimeTool.parseDateTime(event.getEnd());
         }
         return null;

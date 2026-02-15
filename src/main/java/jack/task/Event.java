@@ -70,8 +70,8 @@ public class Event extends Task {
         String start = tempstart.substring(5);
         String tempend = temp[2];
         String end = tempend.substring(3);
-        Event t = new Event(text, start, end);
-        return t;
+        Event event = new Event(text, start, end);
+        return event;
     }
 
     /**

@@ -86,7 +86,7 @@ public class Note extends Task {
     public boolean isDone() {
         return false;
     }
-    
+
     /**
      * Creates a new Note task from the given task string.
      * @param task The task string containing the description.
