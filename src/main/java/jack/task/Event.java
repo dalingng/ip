@@ -66,12 +66,11 @@ public class Event extends Task {
         }
         String[] temp = task.split(" /", 3);
         String text = temp[0];
-        String tempstart = temp[1];
-        String start = tempstart.substring(5);
-        String tempend = temp[2];
-        String end = tempend.substring(3);
-        Event event = new Event(text, start, end);
-        return event;
+        String tempStart = temp[1];
+        String start = tempStart.substring(5);
+        String tempEnd = temp[2];
+        String end = tempEnd.substring(3);
+        return new Event(text, start, end);
     }
 
     /**

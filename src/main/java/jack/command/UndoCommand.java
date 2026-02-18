@@ -1,5 +1,6 @@
 package jack.command;
 
+import jack.Excep;
 import jack.storage.Storage;
 import jack.task.TaskList;
 import jack.ui.Ui;
@@ -17,9 +18,10 @@ public class UndoCommand extends Command {
      * @param ui The UI object.
      * @param storage The storage object.
      * @return The undo message.
+     * @throws Excep If an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         if (tasks.isEmpty()) {
             ui.showLine();
             String msg = "No previous state to undo to.";

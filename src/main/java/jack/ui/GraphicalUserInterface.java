@@ -110,10 +110,6 @@ public class GraphicalUserInterface {
                     inputField.clear();
                     generateResponseMessageBox(e.getMessage());
                     scrollToBottom();
-                } catch (Exception e) {
-                    inputField.clear();
-                    generateResponseMessageBox(e.getMessage());
-                    scrollToBottom();
                 }
             }
         });

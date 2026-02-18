@@ -1,5 +1,6 @@
 package jack.command;
 
+import jack.Excep;
 import jack.storage.Storage;
 import jack.task.TaskList;
 import jack.task.ToDo;
@@ -25,10 +26,10 @@ public class TodoCommand extends Command {
      * @param tasks The task list to add the todo task to.
      * @param ui The UI to display the result.
      * @param storage The storage to save the updated task list.
-     * @throws Exception If an error occurs during execution, such as if the todo description is empty.
+     * @throws Excep If an error occurs during execution, such as if the todo description is empty.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         ToDo todo = ToDo.taskToToDo(text);
         tasks.add(todo);
         storage.save(tasks);

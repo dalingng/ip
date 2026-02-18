@@ -1,5 +1,6 @@
 package jack.command;
 
+import jack.Excep;
 import jack.storage.Storage;
 import jack.task.TaskList;
 import jack.ui.Ui;
@@ -16,9 +17,9 @@ public abstract class Command {
      * @param tasks The task list to operate on.
      * @param ui The UI to interact with the user.
      * @param storage The storage to save/load tasks.
-     * @throws Exception If an error occurs during execution.
+     * @throws Excep If an error occurs during execution.
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Exception;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws Excep;
 
     /**
      * Returns whether the command is an exit command.

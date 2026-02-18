@@ -1,5 +1,6 @@
 package jack.command;
 
+import jack.Excep;
 import jack.storage.Storage;
 import jack.task.Event;
 import jack.task.TaskList;
@@ -25,12 +26,16 @@ public class EventCommand extends Command {
      * @param tasks The task list to add the event task to.
      * @param ui The UI to display the result.
      * @param storage The storage to save the updated task list.
-     * @throws Exception If an error occurs during execution.
+     * @throws Excep If an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         tasks.add(event);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (Exception e) {
+            throw new Excep("Error saving task list:" + e.getMessage());
+        }
         return ui.event(tasks, event);
     }
 }

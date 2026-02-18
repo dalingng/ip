@@ -56,9 +56,10 @@ public class ReminderCommand extends Command {
      * @param ui The UI object.
      * @param storage The storage object.
      * @return The reminder message.
+     * @throws Excep If an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         ui.showLine();
         LocalDateTime now = LocalDateTime.now();
 

@@ -1,5 +1,6 @@
 package jack.command;
 
+import jack.Excep;
 import jack.storage.Storage;
 import jack.task.TaskList;
 import jack.ui.Ui;
@@ -24,10 +25,10 @@ public class FindCommand extends Command {
      * @param tasks The task list to search in.
      * @param ui The UI to display the search results.
      * @param storage The storage (not used in this command).
-     * @throws Exception If an error occurs during execution.
+     * @throws Excep If an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         return ui.find(tasks, keyword);
     }
 }

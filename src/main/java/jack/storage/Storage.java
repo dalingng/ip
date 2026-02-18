@@ -85,13 +85,13 @@ public class Storage {
     /**
      * Saves the specified task list to the storage file.
      * @param taskList The task list to save.
-     * @throws IOException If an I/O error occurs when writing to the file.
+     * @throws Excep If an I/O error occurs when writing to the file.
      */
-    public void save(TaskList taskList) throws IOException {
+    public void save(TaskList taskList) throws Excep {
         assert taskList != null : "Task list cannot be null";
         assert storageFile != null : "Target file cannot be null";
         if (taskList == null) {
-            throw new IllegalArgumentException("Task list cannot be null");
+            throw new Excep("Task list cannot be null");
         }
 
         try (FileOutputStream os = new FileOutputStream(storageFile.getPath(), false);
@@ -108,8 +108,7 @@ public class Storage {
 
             bw.flush();
         } catch (IOException e) {
-            System.err.println("Error saving tasks: " + e.getMessage());
-            throw e;
+            throw new Excep("Error saving tasks: " + e.getMessage());
         }
     }
 
@@ -119,7 +118,7 @@ public class Storage {
      * @throws FileNotFoundException If the storage file is not found.
      * @throws IOException If an I/O error occurs when reading from the file.
      */
-    public TaskList read() throws FileNotFoundException, IOException {
+    public TaskList read() throws Excep {
         TaskList taskList = new TaskList();
 
         try (FileReader fileReader = new FileReader(storageFile.getPath());
@@ -138,7 +137,7 @@ public class Storage {
             }
         } catch (IOException e) {
             System.err.println("Error reading tasks: " + e.getMessage());
-            throw e;
+            throw new Excep("Error reading tasks: " + e.getMessage());
         }
 
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");
@@ -149,10 +148,11 @@ public class Storage {
      * Serializes a Task object to a string format for storage.
      * @param task The task to serialize.
      * @return A string representation of the task in storage format.
+     * @throws Excep If the task is null.
      */
-    public static String serialize(Task task) {
+    public static String serialize(Task task) throws Excep {
         if (task == null) {
-            throw new IllegalArgumentException("Task cannot be null");
+            throw new Excep("Task cannot be null");
         }
         return String.join(SEPARATOR, task.taskName(), task.isDone() ? "1" : "0", task.toTask());
     }
@@ -161,9 +161,9 @@ public class Storage {
      * Deserializes a string from the storage file to a Task object.
      * @param line The string to deserialize.
      * @return A Task object created from the string.
-     * @throws Exception If the string format is invalid or the task type is unknown.
+     * @throws Excep If the string format is invalid or the task type is unknown.
      */
-    public static Task deserialize(String line) throws Exception {
+    public static Task deserialize(String line) throws Excep {
         assert line != null : "Line cannot be null";
         assert !line.isEmpty() : "Line cannot be empty";
 
@@ -198,7 +198,7 @@ public class Storage {
             task = Note.taskToNote(command);
             break;
         default:
-            throw new Exception("Unknown task type: " + type);
+            throw new Excep("Unknown task type: " + type);
         }
         assert task != null : "Created task cannot be null";
 

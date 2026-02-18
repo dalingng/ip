@@ -26,10 +26,10 @@ public class UnmarkCommand extends Command {
      * @param tasks The task list containing the task to unmark.
      * @param ui The UI to display the result.
      * @param storage The storage to save the updated task list.
-     * @throws Exception If the task index is invalid or an error occurs during execution.
+     * @throws Excep If the task index is invalid or an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         if (idx < 1 || idx >= tasks.size()) {
             throw new Excep("no such task number");
         }

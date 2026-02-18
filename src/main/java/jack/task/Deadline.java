@@ -70,9 +70,9 @@ public class Deadline extends Task {
         }
         String[] temp = task.split(" /", 2);
         String text = temp[0];
-        String tempdl = temp[1];
-        String dl = tempdl.substring(3);
-        return new Deadline(text, dl);
+        String tempDeadline = temp[1];
+        String deadline = tempDeadline.substring(3);
+        return new Deadline(text, deadline);
     }
 
     /**

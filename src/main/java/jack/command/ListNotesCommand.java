@@ -1,5 +1,6 @@
 package jack.command;
 
+import jack.Excep;
 import jack.storage.Storage;
 import jack.task.Note;
 import jack.task.Task;
@@ -17,9 +18,10 @@ public class ListNotesCommand extends Command {
      * @param ui The UI object.
      * @param storage The storage object.
      * @return The list notes message.
+     * @throws Excep If an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         ui.showLine();
         StringBuilder result = new StringBuilder();
         result.append("Here are your notes:\n");

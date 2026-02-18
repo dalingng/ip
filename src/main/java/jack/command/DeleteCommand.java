@@ -26,16 +26,20 @@ public class DeleteCommand extends Command {
      * @param tasks The task list containing the task to delete.
      * @param ui The UI to display the result.
      * @param storage The storage to save the updated task list.
-     * @throws Exception If the task index is invalid or an error occurs during execution.
+     * @throws Excep If the task index is invalid or an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Exception {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
         if (idx < 0 || idx >= tasks.size()) {
             throw new Excep("no such task number");
         }
         Task t = tasks.get(idx);
         tasks.remove(idx);
-        storage.save(tasks);
+        try {
+            storage.save(tasks);
+        } catch (Exception e) {
+            throw new Excep("Error saving task list:" + e.getMessage());
+        }
         return ui.delete(tasks, t);
     }
 }
