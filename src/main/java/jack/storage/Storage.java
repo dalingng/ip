@@ -154,7 +154,8 @@ public class Storage {
         if (task == null) {
             throw new Excep("Task cannot be null");
         }
-        return String.join(SEPARATOR, task.taskName(), task.isDone() ? "1" : "0", task.toTask());
+        String taskString = task.toTask().replace(" | ", "@|@");
+        return String.join(SEPARATOR, task.taskName(), task.isDone() ? "1" : "0", taskString);
     }
 
     /**
@@ -179,7 +180,7 @@ public class Storage {
         assert statusStr.trim().equals("0") || statusStr.trim().equals("1") : "Status must be '0' or '1'";
 
         boolean mark = statusStr.trim().equals("0") ? false : true;
-        String command = args[2].trim();
+        String command = args[2].trim().replaceAll("@|@", " | ");
         assert command != null : "Command string cannot be null";
         assert !command.isEmpty() : "Command string cannot be empty";
 
