@@ -24,19 +24,12 @@ public class Deadline extends Task {
         this.due = DateTimeTool.parseDateTime(due);
     }
 
-    /**
-     * Returns a string representation of the deadline task.
-     * @return A string containing the task type, status icon, description, and due date.
-     */
     @Override
     public String toString() {
-        return "[" + taskName() + "]" + super.toString() + " (by: " + due + ")";
+        return "[" + taskName() + "]" + super.toString()
+                + " (by: " + DateTimeTool.formatDateTime(due) + ")";
     }
 
-    /**
-     * Returns the task type name for deadline tasks.
-     * @return "D" for deadline tasks.
-     */
     @Override
     public String taskName() {
         return "D";
@@ -69,10 +62,6 @@ public class Deadline extends Task {
         return new Deadline(text, deadline);
     }
 
-    /**
-     * Returns the task information as a string for storage.
-     * @return A string containing the description and due date of the task.
-     */
     @Override
     public String toTask() {
         return this.getDescription() + " /by " + DateTimeTool.formatDateTime(due);

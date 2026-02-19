@@ -26,19 +26,13 @@ public class Event extends Task {
         this.end = DateTimeTool.parseDateTime(end);
     }
 
-    /**
-     * Returns a string representation of the event task.
-     * @return A string containing the task type, status icon, description, start time, and end time.
-     */
     @Override
     public String toString() {
-        return "[" + taskName() + "]" + super.toString() + " (from: " + start + " to: " + end + ")";
+        return "[" + taskName() + "]" + super.toString() + " (from: "
+                + DateTimeTool.formatDateTime(start) + " to: "
+                + DateTimeTool.formatDateTime(end) + ")";
     }
 
-    /**
-     * Returns the task type name for event tasks.
-     * @return "E" for event tasks.
-     */
     @Override
     public String taskName() {
         return "E";
@@ -65,10 +59,6 @@ public class Event extends Task {
         return new Event(text, start, end);
     }
 
-    /**
-     * Returns the task information as a string for storage.
-     * @return A string containing the description, start time, and end time of the task.
-     */
     @Override
     public String toTask() {
         return this.getDescription() + " /from "
