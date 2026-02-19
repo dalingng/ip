@@ -15,6 +15,7 @@ plugins {
     application
 
     id("org.openjfx.javafxplugin") version "0.0.14"
+    id("com.gradleup.shadow") version "8.3.0"
     // Apply CheckStyle plugin
     checkstyle
 }
@@ -54,12 +55,12 @@ testing {
     }
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
-    }
-}
+// // Apply a specific Java toolchain to ease working on different environments.
+// java {
+//     toolchain {
+//         languageVersion = JavaLanguageVersion.of(17)
+//     }
+// }
 
 application {
     // Define the main class for the application.
@@ -94,6 +95,13 @@ tasks.jar {
         exclude("META-INF/*.RSA")
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.shadowJar {
+    archiveFileName.set("Jack-v"+version+".jar")
+    manifest {
+        attributes["Main-Class"] = "jack.Launcher"
+    }
 }
 
 // Configure CheckStyle
