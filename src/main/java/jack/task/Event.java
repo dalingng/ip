@@ -10,28 +10,20 @@ import jack.Excep;
  * Extends the Task class.
  */
 public class Event extends Task {
-    protected String start;
-    protected String end;
+    protected LocalDateTime start;
+    protected LocalDateTime end;
 
     /**
      * Constructs a new Event task with the specified description, start time, and end time.
      * @param description The description of the event task.
      * @param start The start time of the event task.
      * @param end The end time of the event task.
+     * @throws Excep If there is an error parsing the start or end time.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws Excep {
         super(description);
-        try {
-            LocalDateTime startTime = DateTimeTool.parseDateTime(start);
-            this.start = DateTimeTool.formatDateTime(startTime);
-
-            LocalDateTime endTime = DateTimeTool.parseDateTime(end);
-            this.end = DateTimeTool.formatDateTime(endTime);
-        } catch (Excep e) {
-            System.out.println(e.getMessage());
-            this.start = start;
-            this.end = end;
-        }
+        this.start = DateTimeTool.parseDateTime(start);
+        this.end = DateTimeTool.parseDateTime(end);
     }
 
     /**
@@ -56,7 +48,7 @@ public class Event extends Task {
      * Creates a new Event task from the given task string.
      * @param task The task string containing the description, start time, and end time.
      * @return A new Event task with the specified description, start time, and end time.
-     * @throws Excep If the task string is empty or does not contain "from" or "to".
+     * @throws Excep If the task string is empty or does not contain "/from" or "/to".
      */
     public static Event taskToEvent(String task) throws Excep {
         if (task.isEmpty()) {
@@ -77,15 +69,18 @@ public class Event extends Task {
      * Returns the task information as a string for storage.
      * @return A string containing the description, start time, and end time of the task.
      */
+    @Override
     public String toTask() {
-        return this.getDescription() + " /from " + this.getStart() + " /to " + this.getEnd();
+        return this.getDescription() + " /from "
+                + DateTimeTool.formatDateTime(start) + " /to "
+                + DateTimeTool.formatDateTime(end);
     }
 
     /**
      * Returns the start time of the event task.
      * @return The start time of the event task.
      */
-    public String getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
@@ -93,8 +88,7 @@ public class Event extends Task {
      * Returns the end time of the event task.
      * @return The end time of the event task.
      */
-    public String getEnd() {
+    public LocalDateTime getEnd() {
         return end;
     }
 }
-

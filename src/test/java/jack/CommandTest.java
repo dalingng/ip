@@ -26,7 +26,7 @@ public class CommandTest {
         Storage storage = new Storage("./test_duke.txt");
 
         try {
-            TodoCommand command = new TodoCommand("test task");
+            TodoCommand command = new TodoCommand(new ToDo("test task"));
             String result = command.execute(tasks, ui, storage);
 
             assertEquals(1, tasks.size());
@@ -47,24 +47,11 @@ public class CommandTest {
     }
 
     @Test
-    public void testTodoCommandWithEmptyTask() throws Exception {
-        TaskList tasks = new TaskList();
-        Ui ui = new Ui();
-        Storage storage = new Storage("./test_duke.txt");
-
-        try {
-            TodoCommand command = new TodoCommand("");
-            Excep exception = assertThrows(Excep.class, () -> {
-                command.execute(tasks, ui, storage);
-            });
-            assertEquals("todo description cannot be empty", exception.getMessage());
-        } finally {
-            // Clean up: delete test data file
-            File testFile = new File("./test_duke.txt");
-            if (testFile.exists()) {
-                testFile.delete();
-            }
-        }
+    public void testTodoCommandWithEmptyTask() {
+        Excep exception = assertThrows(Excep.class, () -> {
+            Parser.parse("todo ");
+        });
+        assertEquals("todo description cannot be empty", exception.getMessage());
     }
 
     @Test
@@ -80,7 +67,7 @@ public class CommandTest {
         Excep exception = assertThrows(Excep.class, () -> {
             Parser.parse("");
         });
-        assertEquals("unsupported command", exception.getMessage());
+        assertEquals("empty command", exception.getMessage());
     }
 
     @Test

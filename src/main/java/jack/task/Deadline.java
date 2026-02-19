@@ -11,7 +11,7 @@ import jack.Excep;
  */
 public class Deadline extends Task {
 
-    protected String due;
+    protected LocalDateTime due;
 
     /**
      * Constructs a new Deadline task with the specified description and due date.
@@ -21,13 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String due) throws Excep {
         super(description);
-        try {
-            LocalDateTime time = DateTimeTool.parseDateTime(due);
-            this.due = DateTimeTool.formatDateTime(time);
-        } catch (Excep e) {
-            System.out.println(e.getMessage());
-            this.due = due;
-        }
+        this.due = DateTimeTool.parseDateTime(due);
     }
 
     /**
@@ -52,7 +46,7 @@ public class Deadline extends Task {
      * Returns the due date of the deadline task.
      * @return The due date of the deadline task.
      */
-    public String getDue() {
+    public LocalDateTime getDue() {
         return due;
     }
 
@@ -60,7 +54,7 @@ public class Deadline extends Task {
      * Creates a new Deadline task from the given task string.
      * @param task The task string containing the description and due date.
      * @return A new Deadline task with the specified description and due date.
-     * @throws Excep If the task string is empty or does not contain "by".
+     * @throws Excep If the task string is empty or does not contain "/by".
      */
     public static Deadline taskToDeadline(String task) throws Excep {
         if (task.isEmpty()) {
@@ -79,8 +73,8 @@ public class Deadline extends Task {
      * Returns the task information as a string for storage.
      * @return A string containing the description and due date of the task.
      */
+    @Override
     public String toTask() {
-        return this.getDescription() + " /by " + this.getDue();
+        return this.getDescription() + " /by " + DateTimeTool.formatDateTime(due);
     }
 }
-

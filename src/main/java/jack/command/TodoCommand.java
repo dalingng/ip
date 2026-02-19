@@ -11,14 +11,14 @@ import jack.ui.Ui;
  * Extends the Command class.
  */
 public class TodoCommand extends Command {
-    private String text;
+    private ToDo todo;
 
     /**
-     * Constructs a new TodoCommand with the specified todo task description.
-     * @param text The description of the todo task to add.
+     * Constructs a new TodoCommand with the specified todo task.
+     * @param todo The todo task to add.
      */
-    public TodoCommand(String text) {
-        this.text = text;
+    public TodoCommand(ToDo todo) {
+        this.todo = todo;
     }
 
     /**
@@ -26,11 +26,10 @@ public class TodoCommand extends Command {
      * @param tasks The task list to add the todo task to.
      * @param ui The UI to display the result.
      * @param storage The storage to save the updated task list.
-     * @throws Excep If an error occurs during execution, such as if the todo description is empty.
+     * @throws Excep If an error occurs during execution.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
-        ToDo todo = ToDo.taskToToDo(text);
         tasks.add(todo);
         storage.save(tasks);
         return ui.todo(tasks, todo);

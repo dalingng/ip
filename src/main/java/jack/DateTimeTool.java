@@ -46,7 +46,7 @@ public class DateTimeTool {
      * Tries multiple date and time formats to handle different input styles.
      * @param timeStr The string to parse as a date and time.
      * @return A LocalDateTime object representing the parsed date and time.
-     * @throws Excep If the string is null, empty, or cannot be parsed into any supported format.
+     * @throws Excep If the string is null, empty, or cannot be parsed.
      */
     public static LocalDateTime parseDateTime(String timeStr) throws Excep {
         String[] patterns = new String[] {
@@ -64,31 +64,35 @@ public class DateTimeTool {
             "dd-MMM-yyyy HH:mm:ss", "dd-MMM-yyyy", "MMM dd yyyy", "MMM dd yyyy HH:mm:ss",
             "MMM dd yyyy h.mm.ssa"
         };
-        // is not null
         if (timeStr == null || timeStr.trim().isEmpty()) {
             throw new Excep("time is null");
         }
         String tStr = timeStr.trim();
-        // try all format
         return Arrays.stream(patterns)
                 .map(DateTimeFormatter::ofPattern)
-                .map(formatter -> {
-                    formatter = formatter.withLocale(Locale.ENGLISH);
-                    try {
-                        // parse LocalDateTime
-                        return LocalDateTime.parse(tStr, formatter);
-                    } catch (DateTimeParseException e1) {
-                        try {
-                            // parse LocalDate
-                            return LocalDate.parse(tStr, formatter).atStartOfDay();
-                        } catch (DateTimeParseException e2) {
-                            // format error return null
-                            return null;
-                        }
-                    }
-                })
+                .map(formatter -> tryParseWithFormatter(formatter, tStr))
                 .filter(result -> result != null)
                 .findFirst()
                 .orElseThrow(() -> new Excep("Not supported datetime format：" + tStr));
+    }
+
+    /**
+     * Tries to parse a time string with a specific formatter.
+     * @param formatter The DateTimeFormatter to use for parsing.
+     * @param timeStr The time string to parse.
+     * @return A LocalDateTime if parsing succeeds, null otherwise.
+     */
+    private static LocalDateTime tryParseWithFormatter(
+            DateTimeFormatter formatter, String timeStr) {
+        formatter = formatter.withLocale(Locale.ENGLISH);
+        try {
+            return LocalDateTime.parse(timeStr, formatter);
+        } catch (DateTimeParseException e1) {
+            try {
+                return LocalDate.parse(timeStr, formatter).atStartOfDay();
+            } catch (DateTimeParseException e2) {
+                return null;
+            }
+        }
     }
 }

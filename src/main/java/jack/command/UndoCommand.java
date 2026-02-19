@@ -33,13 +33,4 @@ public class UndoCommand extends Command {
         tasks.remove(tasks.size() - 1);
         return ui.undo(tasks);
     }
-
-    /**
-     * Returns false as this command does not exit the application.
-     * @return false.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

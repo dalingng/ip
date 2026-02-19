@@ -39,13 +39,4 @@ public class NoteCommand extends Command {
         ui.showLine();
         return msg;
     }
-
-    /**
-     * Returns false as this command does not exit the application.
-     * @return false.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }

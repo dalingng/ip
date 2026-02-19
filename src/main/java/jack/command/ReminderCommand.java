@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import jack.DateTimeTool;
-import jack.Excep;
 import jack.storage.Storage;
 import jack.task.Deadline;
 import jack.task.Event;
@@ -56,10 +54,9 @@ public class ReminderCommand extends Command {
      * @param ui The UI object.
      * @param storage The storage object.
      * @return The reminder message.
-     * @throws Excep If an error occurs during execution.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ui.showLine();
         LocalDateTime now = LocalDateTime.now();
 
@@ -71,12 +68,7 @@ public class ReminderCommand extends Command {
                 continue;
             }
             if (!task.isDone() && hasDueDate(task)) {
-                LocalDateTime dueDate = null;
-                try {
-                    dueDate = getDueDate(task);
-                } catch (Excep e) {
-                    continue;
-                }
+                LocalDateTime dueDate = getDueDate(task);
 
                 if (dueDate != null && dueDate.isAfter(now)) {
                     upcomingTasks.add(new TaskWithDueDate(task, dueDate, i + 1));
@@ -119,25 +111,15 @@ public class ReminderCommand extends Command {
      * Gets the due date of a task.
      * @param task The task to get the due date from.
      * @return The due date of the task, or null if the task has no due date.
-     * @throws Excep If there is an error parsing the date.
      */
-    private LocalDateTime getDueDate(Task task) throws Excep {
+    private LocalDateTime getDueDate(Task task) {
         if (task instanceof Deadline) {
             Deadline deadline = (Deadline) task;
-            return DateTimeTool.parseDateTime(deadline.getDue());
+            return deadline.getDue();
         } else if (task instanceof Event) {
             Event event = (Event) task;
-            return DateTimeTool.parseDateTime(event.getEnd());
+            return event.getEnd();
         }
         return null;
-    }
-
-    /**
-     * Returns false as this command does not exit the application.
-     * @return false.
-     */
-    @Override
-    public boolean isExit() {
-        return false;
     }
 }

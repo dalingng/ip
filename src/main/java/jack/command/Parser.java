@@ -7,7 +7,7 @@ import jack.Excep;
 import jack.task.Deadline;
 import jack.task.Event;
 import jack.task.Note;
-import jack.task.TaskList;
+import jack.task.ToDo;
 
 /**
  * Parses user input into executable commands.
@@ -24,17 +24,6 @@ public class Parser {
      * @throws Excep If the command is invalid or arguments are missing.
      */
     public static Command parse(String userInput) throws Excep {
-        return parse(userInput, null);
-    }
-
-    /**
-     * Parses user input and returns the corresponding command.
-     * @param userInput The user input string.
-     * @param previousState The previous state of the task list (for undo command).
-     * @return The parsed command.
-     * @throws Excep If the command is invalid or arguments are missing.
-     */
-    public static Command parse(String userInput, TaskList previousState) throws Excep {
         assert userInput != null : "User input cannot be null";
         if (userInput == null || userInput.trim().isEmpty()) {
             throw new Excep("empty command");
@@ -49,7 +38,6 @@ public class Parser {
         assert tag != null : "Command tag cannot be null";
         assert !tag.isEmpty() : "Command tag cannot be empty";
 
-        // params string
         int endIndex = matcher.end();
         String remaining = userInput.substring(endIndex);
         String commandArgs = remaining.trim();
@@ -73,7 +61,8 @@ public class Parser {
                 cmd = new DeleteCommand(parseTaskIndex(commandArgs));
                 break;
             case "todo":
-                cmd = new TodoCommand(commandArgs);
+                ToDo todo = ToDo.taskToToDo(commandArgs);
+                cmd = new TodoCommand(todo);
                 break;
             case "event":
                 Event event = Event.taskToEvent(commandArgs);
