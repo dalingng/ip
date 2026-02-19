@@ -278,14 +278,11 @@ public class Ui {
         } else if (lower.contains("deadline") && lower.contains("format")) {
             return "Let me help you with the deadline format!\n"
                 + "Try: deadline <description> /by <date>\n"
-                + "Example: deadline submit report /by 2024-12-25 18:00";
+                + "Example: deadline submit report /by 25/12/2024 1800";
         } else if (lower.contains("event") && lower.contains("format")) {
             return "Let me help you with the event format!\n"
                 + "Try: event <name> /from <start> /to <end>\n"
-                + "Example: event party /from 2024-12-25 18:00 /to 2024-12-26 00:00";
-        } else if (lower.contains("data file") || lower.contains("file")) {
-            return "I'm having trouble with the data file!\n"
-                + "Make sure the ./data folder exists and is writable. ";
+                + "Example: event party /from 25/12/2024 1800 /to 26/12/2024 0000";
         }
         return "Hmm, something went wrong there.\n"
             + errorMsg + "\nDon't worry, let's try again! ";

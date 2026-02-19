@@ -210,7 +210,9 @@ public class GraphicalUserInterface {
                 }
             } catch (Excep e) {
                 inputField.clear();
-                generateResponseMessageBox(ui.getFriendlyError(e.getMessage()));
+                String errorMsg = ui.getFriendlyError(e.getMessage());
+                ui.showError(errorMsg);
+                generateResponseMessageBox(errorMsg);
             }
         }
     }

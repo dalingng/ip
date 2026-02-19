@@ -22,8 +22,12 @@ public class Event extends Task {
      */
     public Event(String description, String start, String end) throws Excep {
         super(description);
-        this.start = DateTimeTool.parseDateTime(start);
-        this.end = DateTimeTool.parseDateTime(end);
+        try {
+            this.start = DateTimeTool.parseDateTime(start);
+            this.end = DateTimeTool.parseDateTime(end);
+        } catch (Exception e) {
+            throw new Excep("wrong event format");
+        }
     }
 
     @Override

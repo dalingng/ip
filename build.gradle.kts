@@ -7,12 +7,11 @@
  */
 
 import org.gradle.external.javadoc.StandardJavadocDocletOptions
+
 version = "0.1"
 
 plugins {
     java
-    // Apply the application plugin to add support for building a CLI application in Java.
-    application
 
     id("org.openjfx.javafxplugin") version "0.0.14"
     id("com.gradleup.shadow") version "8.3.0"
@@ -55,18 +54,16 @@ testing {
     }
 }
 
-// // Apply a specific Java toolchain to ease working on different environments.
-// java {
-//     toolchain {
-//         languageVersion = JavaLanguageVersion.of(17)
-//     }
-// }
-
-application {
-    // Define the main class for the application.
-    mainClass.set("jack.Launcher")
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
-tasks.run {
+
+tasks.register<JavaExec>("run") {
+    mainClass.set("jack.Launcher")
+    classpath = sourceSets.main.get().runtimeClasspath
     standardInput = System.`in`
     workingDir = project.rootDir
 }

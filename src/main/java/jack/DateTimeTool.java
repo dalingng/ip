@@ -50,7 +50,8 @@ public class DateTimeTool {
      */
     public static LocalDateTime parseDateTime(String timeStr) throws Excep {
         String[] patterns = new String[] {
-            "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd",
+            "yyyy-MM-dd HH", "yyyy-MM-dd HH:ss", "yyyy-MM-dd HH:mm:ss",
+            "yyyy/MM/dd", "yyyy/MM/dd HH:mm", "yyyy/MM/dd HH:mm:ss",
             "yyyy_MM_dd HH:mm:ss", "yyyy_MM_dd", "yyyyMMddHHmmss", "yyyyMMdd",
             "MM/dd/yyyy HH:mm:ss", "MM/dd/yyyy",
             "dd/MM/yyyy HH:mm:ss", "dd/MM/yyyy",
@@ -73,7 +74,7 @@ public class DateTimeTool {
                 .map(formatter -> tryParseWithFormatter(formatter, tStr))
                 .filter(result -> result != null)
                 .findFirst()
-                .orElseThrow(() -> new Excep("Not supported datetime format：" + tStr));
+                .orElseThrow(() -> new Excep("datetime format error: " + tStr));
     }
 
     /**

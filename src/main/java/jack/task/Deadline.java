@@ -21,7 +21,11 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String due) throws Excep {
         super(description);
-        this.due = DateTimeTool.parseDateTime(due);
+        try {
+            this.due = DateTimeTool.parseDateTime(due);
+        } catch (Exception e) {
+            throw new Excep("wrong deadline format");
+        }
     }
 
     @Override
