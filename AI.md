@@ -28,5 +28,15 @@
 - Set window title with product name "Jack - Your Personal Task Assistant"
 - Added window icon using the robot image
 
+### 5. Personality (A-Personality)
+- Added cheerful, encouraging responses in Ui.java
+- Created random happy response variations (Awesome, Great, Perfect, Done, Got it)
+- Implemented friendly welcome message: "Hi there! I'm Jack"
+- Added encouraging task completion messages: "Wow! You completed a task!"
+- Made supportive error messages with helpful suggestions
+- Added personality to all command responses (todo, deadline, event, delete, undo, mark, unmark)
+- Created friendly error guidance in GUI with format examples
+
+
 ## Verification
 All AI-generated code has been reviewed and tested to ensure correctness and adherence to project requirements.

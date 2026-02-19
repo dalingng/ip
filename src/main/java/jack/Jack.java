@@ -58,7 +58,7 @@ public class Jack {
                 cmd.execute(tasks, ui, storage);
                 isExis = cmd.isExit();
             } catch (Exception e) {
-                ui.showError(e.getMessage());
+                ui.showError(ui.getFriendlyError(e.getMessage()));
             }
         }
     }
