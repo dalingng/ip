@@ -34,9 +34,9 @@ public class UnmarkCommand extends Command {
             throw new Excep("Invalid task number. You have " + tasks.size() + " tasks.");
         }
         Task t = tasks.get(idx);
-        String msg = ui.unmark();
+        String msg = ui.unmark(t);
         t.unmark();
         storage.save(tasks);
-        return msg + ui.unmarkSuccess(t);
+        return msg;
     }
 }

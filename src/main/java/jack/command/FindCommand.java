@@ -29,6 +29,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws Excep {
+        if (keyword.isEmpty()) {
+            throw new Excep("keyword is required");
+        }
         return ui.find(tasks, keyword);
     }
 }

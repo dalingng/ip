@@ -201,21 +201,11 @@ public class Ui {
      * Displays a message when a task is marked as not done.
      * @return The unmark message.
      */
-    public String unmark() {
+    public String unmark(Task t) {
         System.out.println(LINE);
         String msg = "No worries! I've unmarked this task for you:\n"
+                + "  " + t.toString()
                 + "\nTake your time, no rush! \n";
-        System.out.println(msg);
-        return msg;
-    }
-
-    /**
-     * Displays the task that was marked as not done and a line separator.
-     * @param t The task that was marked as not done.
-     * @return The unmark success message.
-     */
-    public String unmarkSuccess(Task t) {
-        String msg = "  " + t;
         System.out.println(msg);
         System.out.println(LINE);
         return msg;
@@ -238,11 +228,10 @@ public class Ui {
      * @return The formatted search results.
      */
     public String find(TaskList list, String keyword) {
-        System.out.println(LINE);
-        String msg = "I found these for you! \n";
-        System.out.println(msg);
 
-        StringBuilder resultMsg = new StringBuilder(msg);
+        System.out.println(LINE);
+
+        StringBuilder resultMsg = new StringBuilder("");
         final int[] count = {1};
 
         list.stream()
@@ -253,6 +242,12 @@ public class Ui {
                 resultMsg.append(taskMsg).append("\n");
                 count[0]++;
             });
+
+        if (count[0] == 1) {
+            resultMsg.append("No tasks found with the keyword: " + keyword);
+        }
+
+
 
         System.out.println(LINE);
         return resultMsg.toString();
@@ -266,11 +261,10 @@ public class Ui {
     public String getFriendlyError(String errorMsg) {
         String lower = errorMsg.toLowerCase();
         if (lower.contains("empty") || lower.contains("cannot be empty")) {
-            return "Hmm, it looks like you didn't enter anything!\n"
-                + "Could you please try again with some text? ";
+            return "Could you please try again with some text? ";
         } else if (lower.contains("wrong command") || lower.contains("unsupported")) {
-            return "Sorry, I don't understand that command yet!\n"
-                + "Try: todo, deadline, event, list, mark, unmark, delete, find";
+            return "Sorry, I don't understand that command yet! \n"
+                + "Try: todo, deadline, event, list, mark, unmark, delete, find, undo";
         } else if (lower.contains("invalid task") || lower.contains("task number")) {
             return "Oops! That's not a valid task number.\n"
                 + errorMsg + "\n"

@@ -1,30 +1,34 @@
 ____________________________________________________________
 ____________________________________________________________
-Hello I'm Jack
-What can I do for you?
+Hi there! I'm Jack
+I'm here to help you manage your tasks!
+What can I do for you today?
 ____________________________________________________________
 Now you have 0 tasks in the list.
 ____________________________________________________________
-Got it. I've added this task:
+Perfect! I've added this task:
   [T][ ] borrow book
+You're doing great! Keep going!
 ____________________________________________________________
 Now you have 1 tasks in the list.
 ____________________________________________________________
-Here are the tasks in your list:
+Here's your task list! You can do this!
 
-1.[T][ ] borrow book
+1. [T][ ] borrow book
 ____________________________________________________________
-Not supported datetime format：Sunday
 ____________________________________________________________
-Deadline task added: [D][ ] return book (by: Sunday)
- [D][ ] return book (by: Sunday)
+Let me help you with the deadline format!
+Try: deadline <description> /by <date>
+Example: deadline submit report /by 25/12/2024 1800
 ____________________________________________________________
-Now you have 2 tasks in the list.
-Not supported datetime format：Mon 2pm
 ____________________________________________________________
-Got it. I've added this task:
-  [E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+Let me help you with the event format!
+Try: event <name> /from <start> /to <end>
+Example: event party /from 25/12/2024 1800 /to 26/12/2024 0000
 ____________________________________________________________
-Bye. Hope to see you again soon!
 ____________________________________________________________
+Bye bye!
+It was nice chatting with you!
+Come back soon, okay?
+____________________________________________________________
+

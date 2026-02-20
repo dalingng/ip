@@ -54,12 +54,22 @@ public class Event extends Task {
         } else if (!task.contains("/from") || !task.contains("/to")) {
             throw new Excep("wrong event format");
         }
-        String[] temp = task.split(" /", 3);
-        String text = temp[0];
-        String tempStart = temp[1];
-        String start = tempStart.substring(5);
-        String tempEnd = temp[2];
-        String end = tempEnd.substring(3);
+        String[] temp = task.split("((\\/from)|(\\/to))");
+        if (temp.length != 3) {
+            throw new Excep("wrong event format");
+        }
+        String text = temp[0].trim();
+        if (text.isEmpty()) {
+            throw new Excep("wrong event format");
+        }
+        String start = temp[1].trim();
+        if (start.isEmpty()) {
+            throw new Excep("wrong event format");
+        }
+        String end = temp[2].trim();
+        if (end.isEmpty()) {
+            throw new Excep("wrong event format");
+        }
         return new Event(text, start, end);
     }
 

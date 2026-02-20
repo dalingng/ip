@@ -59,10 +59,15 @@ public class Deadline extends Task {
         } else if (!task.contains("/by")) {
             throw new Excep("wrong deadline format");
         }
-        String[] temp = task.split(" /", 2);
-        String text = temp[0];
-        String tempDeadline = temp[1];
-        String deadline = tempDeadline.substring(3);
+        String[] temp = task.split("/by");
+        if (temp.length != 2) {
+            throw new Excep("wrong deadline format");
+        }
+        String text = temp[0].trim();
+        if (text.isEmpty()) {
+            throw new Excep("wrong deadline format");
+        }
+        String deadline = temp[1].trim();
         return new Deadline(text, deadline);
     }
 

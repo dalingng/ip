@@ -17,7 +17,7 @@ Successful usage will produce a acknowlegement prompt
 ```
 Awesome! I've added this task:
 ...
-You're doing great! Keep going! 
+You're doing great! Keep going!
 ```
 
 ## Adding Deadline
@@ -90,7 +90,7 @@ Successful usage will produce a acknowlegement prompt
 
 ```
 Wow! You completed a task!
-You're amazing! Here's what you finished: 
+You're amazing! Here's what you finished:
 ...
 Celebrate this small win!
 ```

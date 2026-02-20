@@ -31,6 +31,7 @@ public class UndoCommand extends Command {
         }
 
         tasks.remove(tasks.size() - 1);
+        storage.save(tasks);
         return ui.undo(tasks);
     }
 }

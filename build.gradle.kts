@@ -27,7 +27,7 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation(libs.guava)
-    
+
     val javaFxVersion = "17.0.9"
     implementation(group = "org.openjfx", name = "javafx-base", version = javaFxVersion, classifier = "win")
     implementation(group = "org.openjfx", name = "javafx-base", version = javaFxVersion, classifier = "mac-aarch64")
