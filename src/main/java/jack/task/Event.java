@@ -54,23 +54,40 @@ public class Event extends Task {
         } else if (!task.contains("/from") || !task.contains("/to")) {
             throw new Excep("wrong event format");
         }
-        String[] temp = task.split("((\\/from)|(\\/to))");
-        if (temp.length != 3) {
+
+        int fromIndex = task.indexOf("/from");
+        int toIndex = task.indexOf("/to");
+        String text;
+        String fromStr;
+        String toStr;
+
+        if (fromIndex < toIndex) {
+            text = task.substring(0, fromIndex).trim();
+            fromStr = task.substring(fromIndex + 5, toIndex).trim();
+            toStr = task.substring(toIndex + 3).trim();
+        } else {
+            text = task.substring(0, toIndex).trim();
+            toStr = task.substring(toIndex + 3, fromIndex).trim();
+            fromStr = task.substring(fromIndex + 5).trim();
+        }
+
+        if (text.isEmpty() || fromStr.isEmpty() || toStr.isEmpty()) {
             throw new Excep("wrong event format");
         }
-        String text = temp[0].trim();
-        if (text.isEmpty()) {
+
+        LocalDateTime fromTime = DateTimeTool.parseDateTime(fromStr);
+        LocalDateTime toTime = DateTimeTool.parseDateTime(toStr);
+
+        if (toTime.isBefore(fromTime)) {
+            throw new Excep("/from cannot be later than /to time");
+        }
+        try {
+            DateTimeTool.parseDateTime(fromStr);
+            DateTimeTool.parseDateTime(toStr);
+        } catch (Exception e) {
             throw new Excep("wrong event format");
         }
-        String start = temp[1].trim();
-        if (start.isEmpty()) {
-            throw new Excep("wrong event format");
-        }
-        String end = temp[2].trim();
-        if (end.isEmpty()) {
-            throw new Excep("wrong event format");
-        }
-        return new Event(text, start, end);
+        return new Event(text, fromStr, toStr);
     }
 
     @Override
